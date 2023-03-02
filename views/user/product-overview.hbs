@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>sKo</title>
+	<link rel="icon" type="image/x-icon" href="https://static.vecteezy.com/system/resources/previews/004/794/362/original/illustration-graphic-of-shoes-store-logo-perfect-to-use-for-technology-company-free-vector.jpg">
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="/css/icomoon.css">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="/css/ionicons.min.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="/css/magnific-popup.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="/css/flexslider.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+	
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	
+	</head>
+  <body>
+
+
+<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">sKo</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+			            <form action="#" class="search-wrap">
+			               <div class="form-group">
+			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+			               </div>
+			            </form>
+			         </div>
+		         </div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li class="active"><a href="/home">Home</a></li>
+								<li class="has-dropdown"><a href="/men">Men</a>
+									<ul class="dropdown">
+										<li><a href="product-detail.html">Product Detail</a></li>
+										<li><a href="cart.html">Shopping Cart</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="order-complete.html">Order Complete</a></li>
+										<li><a href="add-to-wishlist.html">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="/women">Women</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+                                <li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
+								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
+								{{#if username}}
+								<li class="cart"><a href="/orders"><i class="icon-envelope" style="color:black;">Orders</i></a></li>
+								{{/if}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="dropdown" style="float:right;">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{#if user}}
+	{{user}}
+	{{else}}
+	   Account
+	{{/if}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	{{#if user}}
+	<a class="dropdown-item" href="/user-profile">Profile</a>
+	<a class="dropdown-item" href="/logout">Logout</a>
+	{{else}}
+	<a class="dropdown-item" href="/login">Login</a>
+	{{/if}}
+  </div>
+</div>
+			<div class="sale  mt-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8 offset-sm-2 text-center">
+							<div class="row">
+								<div class="owl-carousel2">
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">25% off (Almost) Everything! Use Code: Summer Sale</a></h3>
+										</div>
+									</div>
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">Our biggest sale yet 50% off all summer shoes</a></h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+     <section class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-7 p-b-30">
+                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                        <div class="wrap-slick3 flex-sb flex-w">
+                            <div class="wrap-slick3-dots"></div>
+                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+                          
+                            <div class="slick3 gallery-lb">
+                                <div class="item-slick3" data-thumb="/product-images/{{product._id}}.jpg">
+                                    <div class="wrap-pic-w pos-relative" id="zoom-image">
+                                        <img src="/product-images/{{product.Image.[0].filename}}" alt="IMG-PRODUCT">
+            
+                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/product-images/{{product._id}}">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                    </div>
+					<div class="row my-3  previews">
+                        <div class="col-md-3" >
+                            <img class="w-100" src="/product-images/{{product.Image.[0].filename}}" alt="Sale">
+                        </div>
+                        <div class="col-md-3" style="margin-left: -8px;">
+                            <img class="w-100" src="/product-images/{{product.subImage.[0].filename}}" alt="Sale">
+                        </div>
+                        {{!-- <div class="col-md-3" style="margin-left: -8px;">
+                            <img class="w-100" src="/product-images/{{product.subImage.[1].filename}}" alt="Sale">
+                        </div>
+                        <div class="col-md-3 " style="margin-left: -9px;">
+                            <img class="w-100" src="/product-images/{{product.subImage.[2].filename}}" alt="Sale">
+                        </div> --}}
+                    </div>
+                                </div>
+								
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                 {{#each product}}   
+               <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h3 class="mtext-105 cl2 js-name-detail p-b-14">
+                            {{this.Name}}
+                        </h3>
+                        <h5 class="mtext-105 cl2 js-name-detail p-b-14">
+                            {{this.Description}}
+							
+                         </h5>      
+                        <h6 class="mtext-106 cl2">
+                            {{this.Category}}
+                        </h6>
+
+                        <h6 class="stext-102 cl3 p-t-23">
+                        {{this.Price}}
+                        </h6>
+                        
+						{{/each}}
+                        
+                        <!--  -->
+                        <div class="p-t-33">
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-203 flex-c-m respon6">
+                                    Size
+                                </div>
+            
+                                <div class="size-204 respon6-next">
+                                    <div class="rs1-select2 bor8 bg0">
+                                        <select class="js-select2" name="time">
+                                            <option>Choose an option</option>
+                                            <option>IND 5</option>
+                                            <option>IND 6</option>
+                                            <option>IND 7</option>
+                                            <option>IND 8</option>
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-204 flex-w flex-m respon6-next">
+                                    {{!-- <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                        </div>
+            
+                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+            
+                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                        </div>
+                                    </div> --}}
+                                    {{#if user}}
+									<a href="/add-to-cart/{{product._id}}">
+								 <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail btn btn-primary">
+                                        Add to cart
+                                    </button>	</a>
+                                  
+                                    {{/if}}
+                                </div>
+                            </div>	
+                        </div>
+            
+                        <!--  -->
+                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                            <div class="flex-m bor9 p-r-10 m-r-11">
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                                    <i class="zmdi zmdi-favorite"></i>
+                                </a>
+                            </div>
+            
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+            
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+            
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+      
+      <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+      </body>
+		<script>
+        var options={
+            width:350,
+            height:350,
+            zoomwidth:200,
+            offset:{vertical:0, horizontal:10},
+            scale:.9
+        }
+
+        new ImageZoom(document.getElementById("zoom-image"),options)
+
+    </script>
+    
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+	<script src="/js/jquery.min.js"></script>
+   <!-- popper -->
+   <script src="/js/popper.min.js"></script>
+   <!-- bootstrap 4.1 -->
+   <script src="/js/bootstrap.min.js"></script>
+   <!-- jQuery easing -->
+   <script src="/js/jquery.easing.1.3.js"></script>
+	<!-- Waypoints -->
+	<script src="/js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="/js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="/js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/magnific-popup-options.js"></script>
+	<!-- Date Picker -->
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="/js/jquery.stellar.min.js"></script>
+	<!-- Main -->
+	<script src="/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </html>

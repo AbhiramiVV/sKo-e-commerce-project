@@ -1,0 +1,188 @@
+
+  
+  <!DOCTYPE HTML>
+<html>
+	<head>
+	<title>sKo</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/flexslider.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<body>
+		
+	<div class="colorlib-loader"></div>
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">sKo</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+			            <form action="#" class="search-wrap">
+			               <div class="form-group">
+			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+			               </div>
+			            </form>
+			         </div>
+		         </div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li class="active"><a href="/home">Home</a></li>
+								<li class="has-dropdown"><a href="/men">Men</a>
+									<ul class="dropdown">
+										<li><a href="/cart">Shopping Cart</a></li>
+										<li><a href="/checkout">Checkout</a></li>
+										<li><a href="/add-to-wishlist">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="/women">Women</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+                                <li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
+								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
+								{{#if username}}
+								<li class="cart"><a href="/orders"><i class="icon-envelope" style="color:black;">Orders</i></a></li>
+								{{/if}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="dropdown" style="float:right;">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	{{#if username}}
+	<a class="dropdown-item" href="/user-profile">Profile</a>
+	<a class="dropdown-item" href="/logout">Logout</a>
+	{{else}}
+	<a class="dropdown-item" href="/login">Login</a>
+	{{/if}}
+  </div>
+</div>
+<body>
+  			<div class="sale  mt-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8 offset-sm-2 text-center">
+							<div class="row">
+								<div class="owl-carousel2">
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">25% off (Almost) Everything! Use Code: Summer Sale</a></h3>
+										</div>
+									</div>
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">Our biggest sale yet 50% off all summer shoes</a></h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+    <section class="vh-100 gradient-custom">
+        <div class="row">
+      <div class="col-md-6 m-auto p-3">
+        <div class="container mt-5 pl-5">
+          <h2 class="text-center">Create New Account</h2>
+          {{#if userExist}}
+          <p class="text-center">{{userExist}}</p>
+          {{/if}}
+          <form action="/signup" method="post" id="formValidation">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control"  name="Name"  id="Name"  placeholder="Enter Name"  />
+            </div>
+            <p>{{nameMsg}}</p>
+            <div class="form-group">
+              <label>Email address</label>
+              <input  type="email"  class="form-control"  name="Email"  placeholder="Enter email"  />
+            </div>
+            <p>{{emailMsg}}</p>
+            <div class="form-group">
+              <label>Password</label>
+              <input  type="password"  class="form-control"  name="Password"  placeholder="Enter password"  />
+            </div>
+            <p>{{passwordMsg}}</p>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input  type="text"  class="form-control"  name="Number"  placeholder="Enter Phone number"  />
+            </div>
+            <div class="pt-3">
+              <button  type="submit" class="btn btn-dark float-right"  >Signup</button>
+            </div>
+            <p class="text-center text-muted mt-5 mb-0">Have already an account?
+              <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+      </section>
+{{!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
+</html> --}}
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+   <!-- popper -->
+   <script src="js/popper.min.js"></script>
+   <!-- bootstrap 4.1 -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- jQuery easing -->
+   <script src="js/jquery.easing.1.3.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Date Picker -->
+	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>

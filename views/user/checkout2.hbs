@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>sKo</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+	<link real
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/flexslider.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<body>
+		
+	<div class="colorlib-loader"></div>
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">sKo</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+			            <form action="/searchUser" class="search-wrap" method="get">
+			               <div class="form-group">
+			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+			               </div>
+			            </form>
+			         </div>
+		         </div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li class="active"><a href="/home">Home</a></li>
+								<li class="has-dropdown"><a href="/men">Men</a>
+									<ul class="dropdown">
+										<li><a href="/cart">Shopping Cart</a></li>
+										<li><a href="/checkout">Checkout</a></li>
+										<li><a href="/add-to-wishlist">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="/women">Women</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+                                <li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
+								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
+								{{#if username}}
+								<li class="cart"><a href="/orders"><i class="icon-envelope" style="color:black;">Orders</i></a></li>
+								{{/if}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+    <div class="colorlib-product">
+			<div class="container">
+				<div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Checkout</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+               
+
+               
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3" style="bottom: -1rem;">
+
+                     <form action="/coupon-check" method="post">
+            <span id="errMsg"  class="gl-text u-s-m-b-16 font-weight-bold text-danger"   >Available coupons</span>
+            <div class="u-s-m-b-16">
+              <div class="u-s-m-b-15">
+
+                <label for="coupon"></label>
+                  {{!-- <select name="Coupon" id="coupon" class="">
+                    <option value=""></option>
+                      {{#each coupons}}
+                        <option value="{{this.code}}">{{this.code}}</option>
+                       {{/each}}
+                    </select> --}}
+                <input
+                  class="input-text input-text--primary-style text-center"
+                  type="text"
+                  id="coupon"
+                  name="coupon"
+                  placeholder="Coupon Code"
+                />
+                <input  type="text"  name="userId"  value="{{user._id}}"  hidden  /></div>
+              <div class="u-s-m-b-15">
+
+                <button  class="btn btn-primary mt-2"  type="submit"  >APPLY</button></div>
+            </div>
+          </form>
+
+               
+
+
+                </div>
+
+             
+            </div>
+
+           
+
+            <div class="row billing-fields" >
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom" >
+                    <div class="create-ac-content bg-light-gray padding-20px-all" >
+                     
+
+                       
+                        
+                        <h4 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bold; font-size: 15px; color: rgb(212, 83, 83); text-transform: capitalize;">select an address</h4>
+
+                        
+           <form action="/checkout" method="post" id="my-form" onsubmit="event.preventDefault();">
+
+                        <div class="row">
+
+
+                                    
+                              {{#each user.Adress}}  
+                            <div class="col-md-6">
+                                <div class="address-box" style="border: 1px solid rgb(51, 51, 51);margin-bottom: 12px; padding: 10px; border-radius: 10px; font-size: 12px;">
+
+                                    
+                                   
+
+                                    <div class="manage-address" style="display: flex; flex-direction: column;">
+                                     
+
+                                             <b>{{this.name}}</b>
+                                             <b>{{this.mob_no}} </b>
+                                            <b>{{this.address}}</b>
+                                            <b>PIN:{{this.pincode}}</b>
+
+                                    </div>
+                                
+                                    <input type="radio" value="{{this.address_id}}  " name="address" id="" required>
+                                </label>
+                            </div>
+                            </div>
+                             {{/each}}
+
+                            </div>
+
+
+
+                         
+                           
+
+                    </div>
+
+                    
+
+                </div>
+
+        
+                            
+              
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" style=" top :-7rem;">
+                    <div class="your-order-payment">
+                        <div class="your-order">
+                            <h2 class="order-title mb-4">Your Order</h2>
+
+                            <div class="table-responsive-sm order-table"> 
+                                <table class="bg-white table table-bordered table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">Product Name</th>
+                                            <th>Price</th>           
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {{#each products}}
+                                        {{!-- <% product.forEach((item,index)=>{%> --}}
+                                        <tr>
+                                            <td class="text-left">{{this.Name}} </td>
+                                            <td>₹{{Price}}</td>                                         
+                                            <td>{{this.quantity}}</td>
+                                            <td>₹{{this.subTotal}}</td>
+                                        </tr>
+
+                                        {{/each}}
+                                      
+                                    </tbody>
+
+
+                                    <tfoot class="font-weight-600">
+                                        <tr>
+                                            <td colspan="3" class="text-right">Shipping </td>
+                                            <td>₹ 50</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{totalPrice}}  </td>
+                                        </tr>
+
+                       
+                                            <tr>
+                                                <td colspan="3" class="text-right">Discount</td>
+                                              <td>      <b style="color: rgb(108, 214, 143);">₹{{discount.cashBack}}  </b></td>                                          
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="3" class="text-right">After Applying Coupon</td>
+                                              <td>      <b>₹ {{discount.discountedPrice}}</b></td>                                          
+                                            </tr>
+                                        
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <hr />
+
+                        <div class="your-payment">
+                            <h2 class="payment-title mb-3">payment method</h2>
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <div id="accordion" class="payment-section">
+                                        <div class="card mb-2">
+
+                                        
+                                                <div class="card-header" style="display: flex; gap: 10px;">
+                                                    <input type="text" name="total" value="{{totalPrice}}" hidden>
+                                                    <input type="radio" id="cod" name="payment" value="cod" required>
+                                                    <a class="card-link" data-toggle="collapse" href="#collapseOne">Cash On Delivery </a>
+                                                </div>
+                                           
+
+                                       
+                                            <div id="collapseOne" class="collapse" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p class="no-margin font-15">payment method in which customers don't pay for mailed goods until they've received and decided to keep them.</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2 collapsed card-link">
+                                           
+                                                <div class="card-header" style="display: flex; gap: 10px; align-items: center;">
+                                                    <input type="radio" id="online" name="payment" value="online" required>
+                                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo"> online Payment   </a>
+                                                    </div>
+                                         
+                                            
+                                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p class="no-margin font-15">Online payment allows you to pay money via the internet. Buyers will use this type of payment when they purchase goods online or offline. They can use different types of online payment methods, including debit/credit cards, wire transfers, net banking, and digital wallets.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+
+                                <div class="order-button-payment">
+                                    <button class="btn" onclick="placeOrder()" type="submit">Place order</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </form>
+
+        
+
+
+            </div>
+        </div>
+        
+    </div>
+			</div>
+		</div>
+         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function placeOrder(){
+  axios.post('/checkout', document.querySelector('#my-form'), {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}).then((resp)=>{
+    console.log(resp)
+    if(resp.data.codSuccess){
+  window.location.href='/orderSuccess'
+}else{
+   
+razorpayPayment(resp.data)
+}
+})
+    }
+    function razorpayPayment(order){
+    
+  console.log(order.id)
+    var options = {
+    "key": "rzp_test_miQEHrpQWMK0yw", // Enter the Key ID generated from the Dashboard
+    "amount":  order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "sKo", //your business name
+    "description": "Online Transaction",
+    
+    "order_id":  order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        
+        verifyPayment(response,order)
+    },
+    "prefill": {
+        "name": 'name', //your customer's name
+        "email":  'email',
+        "contact": 'phone'
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+ rzp1.open();
+   }
+
+   function verifyPayment(payment,order){
+    axios.post('/verifyPayment',{payment,order}).then((resp)=>{
+      if(resp.data.success){
+         window.location.href='/orderSuccess'
+      }else{
+        console.log("Payment failed")
+      }
+    })
+   }
+</script>
+		
+
+		
+<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+   <!-- popper -->
+   <script src="js/popper.min.js"></script>
+   <!-- bootstrap 4.1 -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- jQuery easing -->
+   <script src="js/jquery.easing.1.3.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Date Picker -->
+	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
+
+
+</body>
+</html>

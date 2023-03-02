@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        <style>.profile-main {
+            width: 100vw;
+            min-height: 100vh;
+            background-color: var(--lightWhite);
+        }
+
+        .profile-container {
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .profil-row button {
+            width: 70px;
+            height: 35px;
+            border: none;
+            outline: none;
+            background-color: rgb(37, 35, 35);
+            color: white;
+            font-weight: 500;
+            font-size: .9rem;
+            margin-top: 20px;
+        }
+
+        .profil-row button:last-child {
+            background-color: rgb(248, 50, 50);
+        }
+
+        .profil-row i {
+            font-size: .7rem;
+        }
+
+        .profile-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-item {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            justify-content:flex-start;
+            align-items: center;
+            background-color: #fff;
+            margin-top: 20px;
+            padding: 0px 20px;
+            color: var(--black);
+        }
+
+        .manage-profile-address {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .manage-address-row {
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .man-ad-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .man-ad-right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .man-ad-right i {
+            font-size: 1.2rem;
+            color: rgb(9, 61, 9);
+            font-weight: 500;
+        }
+
+        .man-ad-right i:last-child {
+            color: blue;
+        }
+
+        .navBar{
+          display: flex;
+          align-items: center;
+          height: 120px;
+        }
+    </style>
+
+
+    <title>sKo</title>
+</head>
+
+<body>
+
+<div class= "bg-white navBar">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row align-items-center">
+					<!-- LOGO -->
+					<div class="col-md-2">
+						<div class="header-logo ">
+							<a href="/" class="logo" style="text-decoration: none;">
+								<h1 class="font-weight-bold"
+									 style="color: #42ac88;">sKo</font>
+                                     
+									
+								</h1>
+
+							</a>
+						</div>
+					</div>
+                    <div  class="col-md-6 text-center" style="margin-top: 6rem;">
+            <h3 class="text-dark "> PROFILE </h3>
+        </div>
+					</div>
+					</div>
+					</div>
+
+
+
+    <div class="profile-main">
+        
+        <div class="container pt-5">
+            
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="profile-container">
+                        <h4>General</h4>
+                        <div class="card-body text-center" style="margin-left: -23rem;">
+                  <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">{{user.Name}}</h5>
+                  {{!-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
+                </div>
+                        <div class="profil-row">
+                            <b>Name : </b><span>{{user.Name}}</span>
+                        </div> 
+                         <div class="profil-row">
+                            <b>Mob No : </b><span>{{user.Number}}</span>
+                        </div>
+
+                        <div class="profil-row">
+                            {{!-- <button onclick="window.location.href='/edit-profile/{{data.address.address_id}}'">Edit</button> --}}
+                            <a href="/edit-user-profile/{{user._id}}" ><button >Edit</button></a>
+                            <a href="/logout"><button style="padding-top: -9rem;" >Logout</button> </a>
+                        </div>
+                    </div>
+                    <div class="porfile-items">
+                        <a href="/cart" class="profile-item">
+                            <b>Cart</b>
+                            <i class="ri-shopping-cart-line mx-2"></i>
+                        </a>
+                    </div>
+                    <div class="porfile-items">
+                        <a href="/wishlist" class="profile-item">
+                            <b>Wishlist</b>
+                            <i class="ri-heart-line mx-2"></i>
+                        </a>
+                    </div>
+                    <div class="porfile-items">
+                        <a href="/orders" class="profile-item">
+                            <b>Order History</b>
+                            <i class="ri-shopping-bag-2-line mx-2"></i>
+                        </a>
+                    </div>
+                    {{!-- <div class="porfile-items">
+                        <a href="/coupons" class="profile-item">
+                            <b>Coupons</b>
+                            <i class="ri-coupon-2-line"></i>
+                        </a>
+                    </div> --}}
+                    <div class="row"></div>
+                </div>
+                <div class="col-12 col-md-6">
+
+                    {{#unless addAddress}}
+                    <div class="manage-profile-address pt-3">
+                        <div class="d-flex justify-content-around" style="margin-top: 1rem;">
+                            <h4>Manage address </h4>
+                            {{#unless maxAddress}}
+                            <a href="/addAddress" class="btn btn-dark rounded-4 ">Add Address</a>
+                            {{/unless}}
+                        </div>
+                        {{#each user.Adress}}
+                        <div class="manage-address-row">
+                            <div class="man-ad-left">
+                                <b>{{this.name}}</b>
+                                <b>{{this.mob_no}} </b>
+                                <b>{{this.address}}</b>
+                                <b>PIN:{{this.pincode}}</b>
+                            </div>
+                            <div class="man-ad-right">
+                                <a href="/delete_user_address/{{this.address_id}}">
+                                <i class="ri-delete-bin-5-line"></i>
+                                </a>
+                                {{!-- <i class="ri-delete-bin-5-line" onclick="deleteAddress('<%=item.id%>')"></i> --}}
+                                <a href='/edit_Address/{{this.address_id}}'><i class="ri-edit-box-line"></i></a>
+                            </div>
+                        </div>
+                        {{/each}}
+
+                        <div class="mt-3 text-center">
+
+                                  <b class="font-weight-bold"><span class="text-danger font-weight-bold "> NOTE: </span>Only 3 Address Can Be Added</b>
+                        </div>
+
+                    </div>
+{{else}}
+{{!-- **************************************** --}}
+<div class="container">
+  <div class="row mx-0 justify-content-center">
+    <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 px-xxl-3 " style="width: 65%;">
+        {{#unless edit}}
+      <form  method="POST"  class=" rounded-1 p-4 border bg-secondary"  action="addAddress" >
+      <label class="d-block mb-4">
+          <span class="form-label d-block">Name :</span>
+          <input style="width: 100%;" name="name" type="text"   class="form-control"  required />
+        </label>
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Mobile No :</span>
+          <input style="width: 100%;"  name="mob_no" type="text" class="form-control" placeholder="" required />
+        </label>
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Email :</span>
+          <input style="width: 100%;" name="Email" type="text" class="form-control" placeholder="" required/>
+        </label>
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Pin Code :</span>
+          <input style="width: 100%;" name="pincode" type="text" class="form-control" placeholder="" required />
+        </label>
+
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Address :</span>
+          <input style="width: 100%; height: 5rem;"  name="address"  type="text"  class="form-control" required placeholder=""/>
+        </label>
+
+        <div class="mb-3 text-center">
+            
+          <button type="submit" class="btn btn-primary px-3 rounded-3">
+            Save
+          </button>
+
+
+
+        </div>
+      </form>
+      {{else}}
+<form
+        method="POST"
+        class=" rounded-1 p-4 border bg-secondary"
+        action="update_Address/{{edit.address_id}}"
+      >
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Name :</span>
+          <input style="width: 100%;"
+            name="name"
+            type="text"
+            class="form-control"
+            value="{{edit.name}}"
+          />
+        </label>
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Mobile No :</span>
+          <input style="width: 100%;"
+            name="mob_no"
+            type="text"
+            class="form-control"
+            placeholder=""
+            value="{{edit.mob_no}}"
+          />
+        </label>
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Pin Code :</span>
+          <input style="width: 100%;" name="pincode" type="text" class="form-control" placeholder="" value="{{edit.pincode}}" />
+        </label>
+
+        <label class="d-block mb-4">
+          <span class="form-label d-block">Address :</span>
+          <input style="width: 100%; height: 5rem;"
+            name="address"
+            type="text"
+            class="form-control"
+            placeholder=""
+            value="{{edit.address}}"
+          />
+        </label>
+
+        <div class="mb-3 text-center">
+            
+          <button type="submit" class="btn btn-primary px-3 rounded-3">
+            Save
+          </button>
+
+
+
+        </div>
+      </form>
+      {{/unless}}
+     
+    </div>
+  </div>
+</div>
+
+{{/unless}}
+
+
+
+{{!-- **************************************** --}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- <script>
+        function deleteAddress(Address_id) {
+            if (confirm("Are you sure delete this address")) {
+                window.location.href = "/delete-address/" + id
+            }
+        }
+    </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

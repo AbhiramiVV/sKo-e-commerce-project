@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>sKo</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/flexslider.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<body>
+		
+	<div class="colorlib-loader"></div>
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">sKo</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+			            <form action="#" class="search-wrap">
+			               <div class="form-group">
+			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+			               </div>
+			            </form>
+			         </div>
+		         </div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li class="active"><a href="/home">Home</a></li>
+								<li class="has-dropdown"><a href="/men">Men</a>
+									<ul class="dropdown">
+										<li><a href="/cart">Shopping Cart</a></li>
+										<li><a href="/checkout">Checkout</a></li>
+										<li><a href="/add-to-wishlist">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="/women">Women</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/contact">Contact</a></li>
+                                <li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
+								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
+								{{#if username}}
+								<li class="cart"><a href="/orders"><i class="icon-envelope" style="color:black;">Orders</i></a></li>
+								{{/if}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="dropdown" style="float:right;">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	{{#if username}}
+	<a class="dropdown-item" href="/user-profile">Profile</a>
+	<a class="dropdown-item" href="/logout">Logout</a>
+	{{else}}
+	<a class="dropdown-item" href="/login">Login</a>
+	{{/if}}
+  </div>
+</div>
+
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-md-12">
+						<div class="product-name d-flex">
+							<div class="one-forth text-left px-4">
+								<span>Product Details</span>
+							</div>
+							<div class="one-eight text-center">
+								<span>Price</span>
+							</div>
+							<div class="one-eight text-center">
+								<span></span>
+							</div>
+						</div>
+						{{#each products}}
+						<div class="product-cart d-flex">
+							<div class="one-forth">
+								
+								<div class="product-img" >
+									<img style="width: 100px;height: 100px;" src="product-images/{{this.Image.[0].filename}}" alt="" />
+									
+								</div>
+								<div class="display-tc">
+									<h3>{{this.Name}}</h3>
+								</div>
+								
+							</div>
+							
+							<div class="one-eight text-center">
+								<div class="display-tc">
+									<span class="price">Rs.{{this.Price}}</span>
+								</div>
+							</div>
+							<div class="one-eight text-center">
+								<div class="display-tc">
+									<a href="/add-to-cart/{{this._id}}">
+								 <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail btn btn-primary">
+                                        Add to cart
+                                    </button>	</a>
+									{{!-- <button onclick="/add-to-cart/{{this._id}}" class="btn btn-primary">Add to cart</button> --}}
+								</div>
+							</div>
+							<div class="one-eight text-center">
+								<div class="display-tc">
+									<a class="cart-item-count ml-3 border-light remove" href="/removeWish/{{this._id}}"><i class="bi bi-trash"></i></a>
+									{{!-- <button class="btn btn btn-danger remove" onclick="removeWish('{{this._id}}','{{this.product._id}}')">Remove</button> --}}
+								</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<script>
+			function removeWish(wishId,productId){
+               Swal.fire({
+               title: 'Do you want to remove this product from the wishlist?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes'
+              }).then((result) => {
+            if (result.isConfirmed) {
+	               $.ajax({
+					url:'/remove-wishlist-product',
+					data:{
+						wishlist:wishId,
+						product:productId
+					},
+					method:'post',
+					success:(response)=>{
+						 location.reload()
+						
+					}
+				})    
+         }
+      })	
+	}
+</script>
+<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+   <!-- popper -->
+   <script src="js/popper.min.js"></script>
+   <!-- bootstrap 4.1 -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- jQuery easing -->
+   <script src="js/jquery.easing.1.3.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Date Picker -->
+	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
