@@ -1,7 +1,7 @@
 const { response } = require("express");
 const express = require("express");
 const adminServices = require("../Services/adminServices");
-const userServices = require("../");
+const userServices = require("../app");
 const userController = require("../Services/user");
 const bcrypt = require("bcrypt");
 const app = express();
