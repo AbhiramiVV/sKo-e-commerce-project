@@ -318,50 +318,7 @@ module.exports={
           
             resolve(products)
         })
-    },
-  
-    // getTotalPrice: () => {
-    //     return new Promise(async (resolve, reject) => {
-    //       try {
-    //         const totalDeliveredAmount = await orderModel.aggregate([
-    //             {
-    //               $match: { orderStatus: "Delivered" }
-    //             },
-    //             {
-    //               $unwind: "$products"
-    //             },
-    //             {
-    //               $group: { _id: null, total: { $sum: "$totalPrice" } }
-    //             },
-    //             {
-    //               $project: { _id: 0, total: 1 }
-    //             }
-    //           ]);
-    //           // The totalDeliveredAmount variable contains the total price of all products that were part of delivered orders
-    //         //   resolve(totalDeliveredAmount[0].total);
-              
-    //       } catch (err) {
-    //         reject(err);
-    //       }
-    //     });
-    //   },
-    //   getTotalSales:()=>{
-    //     return new Promise(async(resolve,reject)=>{
-    //         let totalSales = await orderModel.aggregate([
-    //             {
-    //                 $match:{orderStatus:"Delivered"}
-    //             },
-    //             {
-    //                 $project:{_id:0,status:1}
-    //             },
-    //             {
-    //                 $group:{_id:"status",total:{$sum:1}}
-    //             }
-    //         ])
-    //         resolve(totalSales[0].total)
-    //     })
-    // },
-      
+    },    
 
 }
 

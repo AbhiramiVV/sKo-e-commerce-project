@@ -9,11 +9,14 @@ const router = express.Router();
 const admin = require("../model/adminModel");
 const multer = require("multer");
 const multiUpload = require("../middleware/multer");
+const userModel = require("../model/userModel");
 const adminModel = require("../model/adminModel");
+const productModel=require("../model/productModel")
 const orderModel= require("../model/orderModel")
 const categoryModel = require("../model/categoryModel");
 const user = require("../Services/user");
 const { count } = require("../model/couponModel");
+const { LoggerLevel } = require("mongodb");
 
 module.exports = {
   getHome:async(req, res) => {
@@ -21,12 +24,16 @@ module.exports = {
       // const totalAmount = await adminServices.getTotalPrice();
       const orderCount = await orderModel.find().countDocuments().lean();
       const orders = await orderModel.find().lean()
-        const deliveredOrder = await orderModel.find({ status: "Delivered" }).lean()
+        const deliveredOrder = await orderModel.find({ orderStatus: "Delivered" }).lean()
         let totalRevenue = 0;
         let Orders = deliveredOrder.filter(item => {
             totalRevenue = totalRevenue + item.totalPrice;
         })
-        const monthlyDataArray = await orderModel.aggregate([{$match:{orderStatus:'Delivered'}},{$group:{_id:{$month:"$orderDate"}, sum:{$sum:"$totalPrice"}}}])
+      
+        const monthlyDataArray = await orderModel.aggregate(
+          [{$match:{orderStatus:'Delivered'}},
+          {$group:{_id:{$month:"$orderDate"},
+           sum:{$sum:"$totalPrice"}}}])
            let monthlyDataObject = {}
            monthlyDataArray.map(item => {
                monthlyDataObject[item._id] = item.sum
@@ -35,7 +42,11 @@ module.exports = {
            for (let i = 1; i <= 12; i++) {
                monthlyData[i - 1] = monthlyDataObject[i] ?? 0
            }
-      res.render("admin-home",{totalRevenue,orderCount,monthlyData});
+        const online=await orderModel.find({payment:"online"}).countDocuments().lean()
+        const cod=await orderModel.find({payment:"cod"}).countDocuments().lean()
+        const userCount = await userModel.find({ admin: false }).countDocuments().lean()
+        const productCount = await productModel.find().lean().countDocuments()
+      res.render("admin-home",{totalRevenue,orderCount,monthlyData,online,cod,productCount,userCount});
     } else {
       res.redirect("/admin/login");
     }
