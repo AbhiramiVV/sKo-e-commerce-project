@@ -222,10 +222,6 @@
 					<div class="col-lg-3 mb-4 text-center">
 						<div class="product-entry border">
 							<a href="product-view/?id={{this._id}}" class="prod-img">
-							 {{!-- {{#each products.Image}}
-                <img style="width: 50px;height: 50px;"
-                  src="/product-images/{{this.filename}}" alt="" />
-                  {{/each}} --}}
 				  <img src="product-images/{{this.Image.[0].filename}}" class="img-fluid" alt="Free html5 bootstrap 4 template">
 								{{!-- <img src=" /product-images/{{this.Image.[0].filename}}" class="img-fluid" alt="Free html5 bootstrap 4 template"> --}}
 								
@@ -237,8 +233,6 @@
 								<span class="Category">{{this.subCategory}}</span>
 								<span class="price">Rs.{{this.Price}}</span>
 								<span class="Category">Stock:{{this.Stock}}</span>
-								{{!-- <span class="Category">{{this.Description}}</span> --}}
-								{{!-- <button onclick="/add-to-wishlist/{{this._id}}')" class="btn btn-primary"><i class="icon-heart"></i></button> --}}
 								<a href="add-to-wishlist/{{this._id}}">
 								 <button class="icon-heart btn btn-primary">   
                                     </button>	</a>	
@@ -252,8 +246,20 @@
 					</div>
 					{{/each}}
 					
+					<div class="col-lg-12">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination" style="justify-content: center;">
+								
+								
+								{{#each pagination}}
+								<li class="page-item"><a class="page-link" href="/?page={{inc @index}}">{{inc @index}}</a></li>
+								{{/each}}
+								
+							</ul>
+							</nav>
+						</div>
 				
-		
+					
 				<div class="row">
 					
 					<div class="col partner-col text-center">

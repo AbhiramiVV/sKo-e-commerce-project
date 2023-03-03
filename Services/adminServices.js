@@ -320,31 +320,31 @@ module.exports={
         })
     },
   
-    getTotalPrice: () => {
-        return new Promise(async (resolve, reject) => {
-          try {
-            const totalDeliveredAmount = await orderModel.aggregate([
-                {
-                  $match: { orderStatus: "Delivered" }
-                },
-                {
-                  $unwind: "$products"
-                },
-                {
-                  $group: { _id: null, total: { $sum: "$totalPrice" } }
-                },
-                {
-                  $project: { _id: 0, total: 1 }
-                }
-              ]);
-              // The totalDeliveredAmount variable contains the total price of all products that were part of delivered orders
-              resolve(totalDeliveredAmount[0].total);
+    // getTotalPrice: () => {
+    //     return new Promise(async (resolve, reject) => {
+    //       try {
+    //         const totalDeliveredAmount = await orderModel.aggregate([
+    //             {
+    //               $match: { orderStatus: "Delivered" }
+    //             },
+    //             {
+    //               $unwind: "$products"
+    //             },
+    //             {
+    //               $group: { _id: null, total: { $sum: "$totalPrice" } }
+    //             },
+    //             {
+    //               $project: { _id: 0, total: 1 }
+    //             }
+    //           ]);
+    //           // The totalDeliveredAmount variable contains the total price of all products that were part of delivered orders
+    //         //   resolve(totalDeliveredAmount[0].total);
               
-          } catch (err) {
-            reject(err);
-          }
-        });
-      },
+    //       } catch (err) {
+    //         reject(err);
+    //       }
+    //     });
+    //   },
     //   getTotalSales:()=>{
     //     return new Promise(async(resolve,reject)=>{
     //         let totalSales = await orderModel.aggregate([

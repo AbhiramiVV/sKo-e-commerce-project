@@ -18,16 +18,24 @@ const { count } = require("../model/couponModel");
 module.exports = {
   getHome:async(req, res) => {
     if (req.session.admin) {
-      const totalAmount = await adminServices.getTotalPrice();
-      const orderCount = await orderModel.find().lean().countDocuments();
-      //  let totalSales = await adminServices.getTotalSales();
+      // const totalAmount = await adminServices.getTotalPrice();
+      const orderCount = await orderModel.find().countDocuments().lean();
       const orders = await orderModel.find().lean()
         const deliveredOrder = await orderModel.find({ status: "Delivered" }).lean()
         let totalRevenue = 0;
         let Orders = deliveredOrder.filter(item => {
             totalRevenue = totalRevenue + item.totalPrice;
         })
-      res.render("admin-home",{totalAmount,totalRevenue,orderCount});
+        const monthlyDataArray = await orderModel.aggregate([{$match:{orderStatus:'Delivered'}},{$group:{_id:{$month:"$orderDate"}, sum:{$sum:"$totalPrice"}}}])
+           let monthlyDataObject = {}
+           monthlyDataArray.map(item => {
+               monthlyDataObject[item._id] = item.sum
+           })
+           let monthlyData = []
+           for (let i = 1; i <= 12; i++) {
+               monthlyData[i - 1] = monthlyDataObject[i] ?? 0
+           }
+      res.render("admin-home",{totalRevenue,orderCount,monthlyData});
     } else {
       res.redirect("/admin/login");
     }

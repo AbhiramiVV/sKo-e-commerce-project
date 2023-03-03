@@ -22,13 +22,25 @@ var instance = new Razorpay({
 module.exports = {
   userHome: (req, res) => {
     try {
-      userServices.getpdt().then((products) => {
+      req.session.pageNum=parseInt(req.query.page??1) 
+      req.session.perpage=4;
+      userServices.getpdt(req.session.pageNum,req.session.perpage).then((products) => {
         if (req.session.user) {
           username = req.session.user;
-          res.render("home", { products, username });
+          let pageCount=Math.ceil(products.docCount/req.session.perpage)
+                        let pagination=[]
+                        for(i=1;i<=pageCount;i++){
+                            pagination.push(i)
+                        }
+          res.render("home", { products:products.result, username,pagination });
         } else {
           username = null;
-          res.render("home", { products });
+          let pageCount=Math.ceil(products.docCount/req.session.perpage)
+                        let pagination=[]
+                        for(i=1;i<=pageCount;i++){
+                            pagination.push(i)
+                        }
+          res.render("home", { products:products.result,pagination });
         }
       });
     } catch (error) {

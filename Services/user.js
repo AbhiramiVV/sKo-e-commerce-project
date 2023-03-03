@@ -83,10 +83,14 @@ module.exports={
       },
     
     
-      getpdt:()=>{
+      getpdt:(pageNum,perpage)=>{
         return new Promise(async (resolve, _reject) => {
-              let products = await productModel.find().lean();
-              resolve(products);
+              let result = await productModel.find().countDocuments().then(documentCount=>{
+                docCount=documentCount
+                return productModel.find({productStatus:false}).skip((pageNum-1)*perpage).limit(perpage).lean()
+              })
+             
+              resolve({result,docCount})
             });
           
       },
@@ -444,7 +448,7 @@ for(i=0;i<product.length;i++){
    await orderModel.create({                                                                      
              address:found,
              products:product[i],
-             orderDate:new Date().toLocaleDateString(),
+             orderDate:new Date(),
              userId:_id,
              quantity:cart[i].quantity,
              totalPrice:parseInt(totalPrice),
