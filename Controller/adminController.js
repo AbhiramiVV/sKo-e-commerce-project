@@ -334,7 +334,7 @@ module.exports = {
       console.error(error);
       res.status(500).send("Internal Server Error");
     }
-  },
+  },  
 
   postEditcoupon: async (req, res) => {
     try {
@@ -350,9 +350,6 @@ module.exports = {
 
   getSales: async (req, res) => {
     const productId = req.session._id;
-    // let sales = await adminServices.getSalesCount();
-
-    //console.log('ggggggg'+sales);
     await adminServices.getSalesDetails().then((products) => {
       let filter = products.filter(e=>e.orderStatus=="Delivered")
        

@@ -46,7 +46,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-7 col-md-9">
-							<div id="colorlib-logo"><a href="/home">Footwear</a></div>
+							<div id="colorlib-logo"><a href="/home">sKo</a></div>
 						</div>
 						<div class="col-sm-5 col-md-3">
 			            <form action="#" class="search-wrap">
@@ -159,7 +159,40 @@
 					</div>
     
 				</div>
+				
 				<div class="row row-pb-md">
+					<div class="colorlib-product">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-xl-3">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="side border mb-1">
+									
+									<h3>Brand</h3>
+									<ul>
+										{{#each brand}}
+										<li><a href='/brandmen/{{this._id}}'>{{this._id}}</a></li>
+										{{!-- <li><a href="#">Adidas</a></li>
+										<li><a href="#">Merrel</a></li>
+										<li><a href="#">Gucci</a></li>
+										<li><a href="#">Skechers</a></li> --}}
+										{{/each}}
+									</ul>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="side border mb-1">
+									<h3>Price</h3>
+									<ul>
+										<li><a href="/lowTohigh">Low To High</a></li>
+										<li><a href="/highTolow">High To Low</a></li>
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
                     {{!-- {{#each products}}
 					<div class="col-md-3 col-lg-3 mb-4 text-center">
 						<div class="product-entry border">
@@ -177,6 +210,7 @@
 						</div>
 					</div>
 					{{/each}} --}}
+					{{!-- {{#unless status }} --}}
 						{{#each products}}
 					<div class="col-lg-3 mb-4 text-center">
 						<div class="product-entry border">
@@ -197,7 +231,10 @@
 								<span class="price">Rs.{{this.Price}}</span>
 								<span class="Category">{{this.Stock}}</span>
 								<span class="Category">{{this.Description}}</span>
-								<button onclick="addToWishlist('{{this._id}}')" class="btn btn-primary"><i class="icon-heart"></i></button>
+								<a href="add-to-wishlist/{{this._id}}">
+								 <button class="icon-heart btn btn-primary">   
+                                    </button>	</a>	
+								{{!-- <button onclick="addToWishlist('{{this._id}}')" class="btn btn-primary"><i class="icon-heart"></i></button> --}}
 								<a href="/add-to-cart/{{this._id}}">
 								 <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail btn btn-primary">
                                         Add to cart
@@ -205,19 +242,13 @@
 								</div>
 						</div>
 					</div>
-					{{/each}}
-				</div> 
+					{{/each}}					
+				
 				
 			</div>
 		</div>
 
-		<script>
-	function addToWishlist(productId){
-    console.log(productId)
-    $.ajax({ url:'/add-to-wishlist/'+productId,method:'get',   success:(response)=>{   location.reload()    }
-    })
-}
-</script>
+	
             <div class="row">
 					<div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
 						<h2>Trusted Partners</h2>
@@ -323,6 +354,7 @@
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
 	</div>
+	
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>

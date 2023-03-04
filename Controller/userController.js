@@ -13,7 +13,8 @@ const { resolve } = require("express-hbs/lib/resolver");
 const productModel = require("../model/productModel");
 const couponModel = require("../model/couponModel");
 const orderModel = require("../model/orderModel");
-const Razorpay = require('razorpay')
+const Razorpay = require('razorpay');
+const session = require("express-session");
 
 var instance = new Razorpay({
     key_id: 'rzp_test_miQEHrpQWMK0yw',
@@ -270,23 +271,165 @@ module.exports = {
     })
 
   },
-  menPage: (req, res, next) => {
+  menPage: async(req, res) => {
     let user = req.session.user;
-    adminServices.getMenProduct().then((products) => {
-      res.render("men", { products, user });
+    let brand=await productModel.
+    aggregate([
+      {
+        $group:{_id:"$Name"}
+
+      }
+    ]);
+
+    adminServices.getMenProduct().then((productss) => {
+      let products;
+      if(req.session.lowTohighmen){
+        products=req.session.lowTohighmen
+      }
+      else if(req.session.brandProductmen){
+        products=req.session.brandProductmen
+      }
+      else if(req.session.highTolowmen){
+        products=req.session.highTolowmen
+      }
+      else{
+        products=productss
+      }
+      res.render("men", { products, user,brand ,brandProductmen:req .session.brandProductmen,status:req.session.status,lowTohighmen:req.session.lowTohighmen,highTolowmen:req.session.highTolowmen});
     });
   },
+  getBrandmen:(req,res)=>{
+    req.session.highToLow=null;
+    req.session.lowTohigh=null;
+    return new Promise(async(resolve,reject)=>{
+  let brandProductmen = await productModel.find({ Name: req.params._id }).lean()
+   req.session.brandProductmen=brandProductmen
 
-  womenPage: (req, res, next) => {
-    let user = req.session.user;
-    adminServices.getWomenProduct().then((products) => {
-      res.render("women", { products, user });
-    });
+      res.redirect('/men')
+    })
+  },
+  lowTohighmen:(req,res)=>{
+    req.session.brandProduct=null
+    req.session.highToLowwomen=null
+    return new Promise(async(resolve,reject)=>{
+      let lowTohighmen = await productModel.find({Category:"men"}).sort({Price:1}).lean()
+      resolve(lowTohighmen)
+      req.session.lowTohighmen=lowTohighmen
+req.session.lhstatusmen=true
+      res.redirect('/men')
+      req.session.lhstatusmen=null
+  })
+  },
+  highTolowmen:(req,res)=>{
+    req.session.brandProductmen=null
+    req.session.lowTohighmen=null
+    return new Promise(async(resolve,reject)=>{
+      let highTolowmen = await productModel.find({Category:"men"}).sort({Price:-1}).lean()
+      resolve(highTolowmen)
+      req.session.highTolowmen =highTolowmen 
+req.session.hlstatus=true
+      res.redirect('/men')
+      req.session.hlstatus=null
+  })
   },
 
+  womenPage: async(req, res) => {
+    let user = req.session.user;
+    
+    let brand=await productModel.
+    aggregate([
+      {
+        $group:{_id:"$Name"}
+
+      }
+    ]);
+    adminServices.getWomenProduct().then((product) => {
+   let products;
+
+if(req.session.lowTohigh){
+  products=req.session.lowTohigh
+}
+else if(req.session.brandProduct){
+  products=req.session.brandProduct
+}
+else if(req.session.highToLow){
+  products=req.session.highToLow
+}
+else{
+  products=product
+}
+      res.render("women", { products, user ,brand,brandProduct:req .session.brandProduct,status:req.session.status,lowTohigh:req.session.lowTohigh,lhstatus:req.session.lhstatus});
+       
+
+    });
+    
+  },
+  lowTohigh:(req,res)=>{
+    req.session.brandProduct=null
+    req.session.highToLow=null
+    return new Promise(async(resolve,reject)=>{
+      let lowTohigh = await productModel.find({Category:"women"}).sort({Price:1}).lean()
+      resolve(lowTohigh)
+      req.session.lowTohigh=lowTohigh
+req.session.lhstatus=true
+      res.redirect('/women')
+      req.session.lhstatus=null
+  })
+
+
+  },
+  highTolow:(req,res)=>{
+    req.session.brandProduct=null
+    req.session.lowTohigh=null
+    return new Promise(async(resolve,reject)=>{
+      let highTolow = await productModel.find({Category:"women"}).sort({Price:-1}).lean()
+      resolve(highTolow )
+      req.session.highTolow =highTolow 
+req.session.hlstatus=true
+      res.redirect('/women')
+      req.session.hlstatus=null
+  })
+  },
+  getBrand:(req,res)=>{
+    req.session.highToLow=null;
+    req.session.lowTohigh=null;
+    return new Promise(async(resolve,reject)=>{
+  let brandProduct = await productModel.find({ Name: req.params._id }).lean();
+   req.session.brandProduct=brandProduct
+
+      res.redirect('/women')
+    })
+  },
+  lowTohigh:(req,res)=>{
+    req.session.brandProduct=null
+    req.session.highToLow=null
+    return new Promise(async(resolve,reject)=>{
+      let lowTohigh = await productModel.find({Category:"women"}).sort({Price:1}).lean()
+      resolve(lowTohigh)
+      req.session.lowTohigh=lowTohigh
+req.session.lhstatus=true
+      res.redirect('/women')
+      req.session.lhstatus=null
+  })
+
+
+  },
+  highTolow:(req,res)=>{
+    req.session.brandProduct=null
+    req.session.lowTohigh=null
+    return new Promise(async(resolve,reject)=>{
+      let highTolow = await productModel.find({Category:"women"}).sort({Price:-1}).lean()
+      console.log(highTolow );
+      resolve(highTolow )
+      req.session.highTolow =highTolow 
+req.session.hlstatus=true
+      res.redirect('/women')
+      req.session.hlstatus=null
+  })
+  },
   aboutPage: (req, res) => {
     let username = req.session.user;
-    res.render("about", { username });
+    res.render("about", { username })
   },
 
   contactPage: (req, res) => {

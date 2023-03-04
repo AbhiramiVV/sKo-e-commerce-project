@@ -46,12 +46,18 @@ router.get('/search-product',userController.getSearchProduct);
 //GET Men's page 
 
 router.get('/men',userController.menPage); 
+router.get('/menbrand/:_id',userController.getBrandmen);
+router.get('/lowTohighmen',userController.lowTohighmen);
+router.get('/highTolowmen',userController.highTolowmen);
+
 
 
 //GET Women's page
 
 router.get('/women',userController.womenPage);
-  
+router.get('/brand/:_id',userController.getBrand);
+router.get('/lowTohigh',userController.lowTohigh);
+router.get('/highTolow',userController.highTolow);
 
 //Get about page
 

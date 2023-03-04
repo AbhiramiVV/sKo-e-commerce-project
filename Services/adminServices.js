@@ -39,7 +39,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let products = await productModel.find({Category:"men"}).lean()
             resolve(products)
-        })
+        }) 
     },
 
     getWomenProduct:()=>{
