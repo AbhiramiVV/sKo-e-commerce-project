@@ -315,7 +315,7 @@ module.exports = {
       let lowTohighmen = await productModel.find({Category:"men"}).sort({Price:1}).lean()
       resolve(lowTohighmen)
       req.session.lowTohighmen=lowTohighmen
-req.session.lhstatusmen=true
+      req.session.lhstatusmen=true
       res.redirect('/men')
       req.session.lhstatusmen=null
   })
@@ -327,7 +327,7 @@ req.session.lhstatusmen=true
       let highTolowmen = await productModel.find({Category:"men"}).sort({Price:-1}).lean()
       resolve(highTolowmen)
       req.session.highTolowmen =highTolowmen 
-req.session.hlstatus=true
+      req.session.hlstatus=true
       res.redirect('/men')
       req.session.hlstatus=null
   })
