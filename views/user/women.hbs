@@ -49,11 +49,11 @@
 							<div id="colorlib-logo"><a href="/home">sKo</a></div>
 						</div>
 						<div class="col-sm-5 col-md-3">
-			            <form action="#" class="search-wrap">
-			               <div class="form-group">
-			                  <input type="search" class="form-control search" placeholder="Search">
+			            <form action="/search-product" class="search-wrap" role="search">
+			               {{!-- <div class="form-group"> --}}
+			                  <input type="search" name="Name" class="form-control search" placeholder="Search">
 			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
-			               </div>
+			               {{!-- </div> --}}
 			            </form>
 			         </div>
 		         </div>
@@ -73,7 +73,7 @@
 								</li>
 								<li class="active"><a href="/women">Women</a></li>
 								<li><a href="/about">About</a></li>
-								<li><a href="/contact">Contact</a></li>
+								
 								<li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
 								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
 								{{#if user}}

@@ -36,8 +36,8 @@ router.post('/signup',check('Name').notEmpty().withMessage("please Enter a Name"
   router.post('/forotp',userController.forgotPost)
   router.get('/forotp',userController.getForotp);
   router.post('/getotp',userController.postForotp); 
-  
-
+  router.get('/reset',userController.getReset);
+router.post('/reset',userController.postReset);
 /* GET home page. */
 router.post('/', userController.userRoot);
 // search
@@ -63,9 +63,6 @@ router.get('/highTolow',userController.highTolow);
 
 router.get('/about',userController.aboutPage);
 
-
-//Get Contact Page
-router.get('/contact',userController.contactPage); 
 
 
 //product view
@@ -112,6 +109,7 @@ router.post('/coupon-check',userController.applyCoupon)
 router.get('/orders', userController.getOrder);
 router.get('/view-order-products/:id',userController.getVieworder);
 router.get('/cancelorder/:id',userController.getCancelorder);
+router.get('/returnorder/:id',userController.getReturnorder);
 
 
 

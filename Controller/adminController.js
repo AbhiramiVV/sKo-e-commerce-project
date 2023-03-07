@@ -11,42 +11,66 @@ const multer = require("multer");
 const multiUpload = require("../middleware/multer");
 const userModel = require("../model/userModel");
 const adminModel = require("../model/adminModel");
-const productModel=require("../model/productModel")
-const orderModel= require("../model/orderModel")
+const productModel = require("../model/productModel");
+const orderModel = require("../model/orderModel");
 const categoryModel = require("../model/categoryModel");
 const user = require("../Services/user");
 const { count } = require("../model/couponModel");
 const { LoggerLevel } = require("mongodb");
 
 module.exports = {
-  getHome:async(req, res) => {
+  getHome: async (req, res) => {
     if (req.session.admin) {
       // const totalAmount = await adminServices.getTotalPrice();
       const orderCount = await orderModel.find().countDocuments().lean();
-      const orders = await orderModel.find().lean()
-        const deliveredOrder = await orderModel.find({ orderStatus: "Delivered" }).lean()
-        let totalRevenue = 0;
-        let Orders = deliveredOrder.filter(item => {
-            totalRevenue = totalRevenue + item.totalPrice;
-        })
-      
-        const monthlyDataArray = await orderModel.aggregate(
-          [{$match:{orderStatus:'Delivered'}},
-          {$group:{_id:{$month:"$orderDate"},
-           sum:{$sum:"$totalPrice"}}}])
-           let monthlyDataObject = {}
-           monthlyDataArray.map(item => {
-               monthlyDataObject[item._id] = item.sum
-           })
-           let monthlyData = []
-           for (let i = 1; i <= 12; i++) {
-               monthlyData[i - 1] = monthlyDataObject[i] ?? 0
-           }
-        const online=await orderModel.find({payment:"online"}).countDocuments().lean()
-        const cod=await orderModel.find({payment:"cod"}).countDocuments().lean()
-        const userCount = await userModel.find({ admin: false }).countDocuments().lean()
-        const productCount = await productModel.find().lean().countDocuments()
-      res.render("admin-home",{totalRevenue,orderCount,monthlyData,online,cod,productCount,userCount});
+      const orders = await orderModel.find().lean();
+      const deliveredOrder = await orderModel
+        .find({ orderStatus: "Delivered" })
+        .lean();
+      let totalRevenue = 0;
+      let Orders = deliveredOrder.filter((item) => {
+        totalRevenue = totalRevenue + item.totalPrice;
+      });
+
+      const monthlyDataArray = await orderModel.aggregate([
+        { $match: { orderStatus: "Delivered" } },
+        {
+          $group: {
+            _id: { $month: "$orderDate" },
+            sum: { $sum: "$totalPrice" },
+          },
+        },
+      ]);
+      let monthlyDataObject = {};
+      monthlyDataArray.map((item) => {
+        monthlyDataObject[item._id] = item.sum;
+      });
+      let monthlyData = [];
+      for (let i = 1; i <= 12; i++) {
+        monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
+      }
+      const online = await orderModel
+        .find({ payment: "online" })
+        .countDocuments()
+        .lean();
+      const cod = await orderModel
+        .find({ payment: "cod" })
+        .countDocuments()
+        .lean();
+      const userCount = await userModel
+        .find({ admin: false })
+        .countDocuments()
+        .lean();
+      const productCount = await productModel.find().lean().countDocuments();
+      res.render("admin-home", {
+        totalRevenue,
+        orderCount,
+        monthlyData,
+        online,
+        cod,
+        productCount,
+        userCount,
+      });
     } else {
       res.redirect("/admin/login");
     }
@@ -79,26 +103,6 @@ module.exports = {
       next(error);
     }
   },
-
-  // getDashboard: async (req, res, next) => {
-  //   try {
-  //     res.render("admin/admin-dashboard");
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // },
- 
-  // getDashboard: async (req, res) => {
-  //   console.log('hloo');
-  //   let totalAmount = await adminServices.getTotalPrice();
-  //   let totalSales = await adminServices.getTotalSales();
-    
-  //   res.render("admin-home", {
-  //     totalAmount,
-  //     totalSales,
-      
-  //   });
-  // },
 
   userDetails: async (req, res, next) => {
     try {
@@ -250,8 +254,12 @@ module.exports = {
 
   getOrder: (req, res) => {
     adminServices.getAdminOrders().then((orders) => {
-      //console.log(orders);
-      res.render("addOrders", { orders });
+      for (const i of orders) {
+        i.orderDate=new Date(i.orderDate).toDateString()
+        // console.log(i.createdAt);
+      }
+        res.render("addOrders", { orders });
+
     });
   },
   getadCancelorder: async (req, res) => {
@@ -334,7 +342,7 @@ module.exports = {
       console.error(error);
       res.status(500).send("Internal Server Error");
     }
-  },  
+  },
 
   postEditcoupon: async (req, res) => {
     try {
@@ -351,8 +359,8 @@ module.exports = {
   getSales: async (req, res) => {
     const productId = req.session._id;
     await adminServices.getSalesDetails().then((products) => {
-      let filter = products.filter(e=>e.orderStatus=="Delivered")
-       
+      let filter = products.filter((e) => e.orderStatus == "Delivered");
+
       res.render("sales-report", { filter });
     });
   },

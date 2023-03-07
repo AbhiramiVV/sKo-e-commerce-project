@@ -67,7 +67,7 @@
               <th scope="col" class="border-dark">Date</th>
                <th scope="col" class="border-dark">Address</th>
               <th scope="col" class="border-dark">Pincode</th>
-              <th scope="col" class="border-dark">Mobile</th>
+              {{!-- <th scope="col" class="border-dark">Mobile</th> --}}
               <th scope="col" class="border-dark">Amount</th>
               <th scope="col" class="border-dark">Payment</th>
               <th scope="col" class="border-dark">Status</th>
@@ -83,7 +83,7 @@
                 <td class="border-dark">{{this.orderDate}}</td>
                 <td class="border-dark">{{this.address.address}}</td>
                 <td class="border-dark">{{this.address.pincode}}</td>
-                <td class="border-dark">{{this.address.mob_no}}</td>
+                {{!-- <td class="border-dark">{{this.address.mob_no}}</td> --}}
                 <td class="border-dark">{{this.totalPrice}}</td>
                 <td class="border-dark">{{this.payment}}</td>
                  <td class="border-dark">{{this.orderStatus}}</td>
@@ -96,7 +96,11 @@
   <ul class="dropdown-menu">
     <li><a class="dropdown-item"   href="/admin/pendding-admin-order/{{this._id}}" >Pending</a></li>
    <li> <a  class="dropdown-item"  href="/admin/deliver-order/{{this._id}}">Delivered</a></li>
+   {{#if orders.cancel}}
+   
+   {{else}}
     <li> <a class="dropdown-item"  href="/admin/cancel-admin-order/{{this._id}}">Cancelled</a></li>
+    {{/if}}
     <li><a  class="dropdown-item"  href="/admin/ship-order/{{this._id}}"  >Shipped</a></li>
   </ul>
   

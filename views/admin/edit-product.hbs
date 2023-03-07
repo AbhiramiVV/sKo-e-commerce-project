@@ -47,7 +47,11 @@
                             <img src="/product-images/{{this.filename}}" alt="" style="width: 50px; height: 50px;" id="imgView">
                             {{/each}}
                         </div>
-                      
+                        <br>
+                        <div>
+                            <label for="">subImage</label>
+                          <input type="file" name="subImage" class="form-control" required multiple/>
+                        </div>
                         {{!-- <label for="">Image</label>
                         <img src="/product-images/{{this.Image.[0].filename}}" alt="" style="width: 50px; height: 50px;" id="imgView"> --}}
                         <input type="file" name="Image" class="form-control" onchange="viewImage(event)">

@@ -6,7 +6,6 @@ const userController = require('../Services/user')
 const bcrypt=require('bcrypt')
 const app=express()
 const router = express.Router();
-const mongoClient=require('mongodb').mongoClient
 const multer=require('multer');
 const multiUpload = require('../middleware/multer');
 const adminController = require('../Controller/adminController');

@@ -18,7 +18,11 @@ const orderSchema= new mongoose.Schema({
         type:Boolean,
         default:false
     },
- 
+    returnStatus:{
+        type:Boolean,
+        default:false
+    },
+    
     paymentStatus:{
         type:Boolean,
         required:true,
@@ -48,6 +52,10 @@ const orderSchema= new mongoose.Schema({
         required:true
     },
     quantity:{
+        type:Number,
+        required:true
+    },
+    discountedPrice:{
         type:Number,
         required:true
     },

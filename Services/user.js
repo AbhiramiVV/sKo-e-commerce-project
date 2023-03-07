@@ -114,6 +114,21 @@ module.exports={
           });
         return randomOTP;
       },
+      resetpassword:(Email,Pass)=>{
+        
+       return new Promise(async(resolve, reject) => {
+        Password= await bcrypt.hash(Pass, 10);
+        console.log(Pass);
+       let result= await userModel.find({Email:Email})
+       console.log(result);
+        await userModel.updateOne({Email:Email},{$set:{Password:Password}}).then(result=>{
+          console.log(result);
+          resolve()
+        })
+        });
+        
+
+      },
       searchProduct:({Name})=>{
         return new Promise(async(resolve,reject)=>{
           try{
@@ -200,7 +215,17 @@ module.exports={
           })
       })
   },
-      
+  returnOrder:(orderId)=>{
+    console.log();
+    return new Promise(async(resolve,reject)=>{
+      await orderModel.updateOne({_id:orderId},{$set:{
+        orderStatus:'Return',returnStatus:true
+      }}).then((response)=>{
+        resolve(response)
+      })
+    })
+
+  },
       addToCart: (productId, userId) => {
         // let prodObj = {item: objectId(productId),quantity: 1,};
         return new Promise(async (resolve, _reject) => {
@@ -438,11 +463,10 @@ module.exports={
   
           const {Adress}= await userModel.findOne({_id:_id},{Adress:1})
           let found=Adress.find(e=>e.address_id=address)
-         // console.log(found);
           const product=await productModel.find({_id:{$in:cartList}}).lean();
     
       let i=0
-   
+   console.log(found);
        let ID =product[0]._id
 for(i=0;i<product.length;i++){
    await orderModel.create({                                                                      
@@ -452,6 +476,7 @@ for(i=0;i<product.length;i++){
              userId:_id,
              quantity:cart[i].quantity,
              totalPrice:parseInt(totalPrice),
+             discountedPrice:0,
              payment:payment,
   }).then(result=>{
     console.log(result);

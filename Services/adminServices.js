@@ -20,7 +20,7 @@ module.exports={
         res.render('login')
     },
     addProduct:(product,files)=>{
-        console.log(product);
+        
         return new Promise(async(resolve,reject)=>{
            let result=await productModel.create({...product,...files,productStatus:false})
             resolve(result)
@@ -246,8 +246,6 @@ module.exports={
     getOrderDetails:(orderId)=>{
         return new Promise( (resolve,reject)=>{
             orderModel.findOne({_id:orderId}).then((order)=>{
-                
-               // console.log(order);
                 resolve(order)
             })
         })
@@ -256,7 +254,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
          await orderModel.updateOne({_id:orderId},{
                 $set:{
-                    orderStatus:'cancelled'
+                    orderStatus:'cancelled',cancel:true
                 }
             }).then((response)=>{
                 resolve(response)

@@ -36,12 +36,12 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
 
-	<body>
+	<body class="vh-100"> 
 		
 	<div class="colorlib-loader"></div>
 
 	<div id="page">
-		<nav class="colorlib-nav" role="navigation">
+		<nav style="    margin-top: -57px;" class="colorlib-nav" role="navigation">
 			<div class="top-menu">
 				<div class="container">
 					<div class="row">
@@ -50,7 +50,7 @@
 						</div>
 						
 		         </div>
-					<div class="row">
+					{{!-- <div class="row">
 						<div class="col-sm-12 text-left menu-1">
 							<ul>
 								<li class="active"><a href="/home">Home</a></li>
@@ -71,7 +71,7 @@
 								{{/if}}
 							</ul>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
             <div class="dropdown" style="float:right;">
@@ -85,7 +85,7 @@
   </div>
 </div>
 <body>
-  			<div class="sale  mt-5">
+  			<div class="sale">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8 offset-sm-2 text-center">
@@ -113,27 +113,27 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;
-    height: 37rem;">
-                        <div class="card-body p-5 text-center">
+    height: 566px;">
+                        <div style="    margin-top: -20px;" class="card-body p-1 text-center">
 
-                            <div class="mb-md-5 mt-md-4 pb-5" style="overflow-y: hidden;">
+                            <div class="mb-md-1 mt-md-4 pb-5" style="overflow-y: hidden;">
 
-                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                <h5 class="fw-bold">sKo</h5>
+                                <h2 style="margin-top: -15px; color: aliceblue;" class="fw-bold mb-2 text-uppercase" >Login</h2>
+                                <h5 style="    margin-top: -26px; color: aliceblue;" class="fw-bold">sKo</h5>
                                 <p class="text-white-50 mb-5">Please enter your Username and Password!</p>
-                                <form action="/login" method="post">
+                                <form action="/login" method="post" style="    margin-top: -54px;">
                                 {{#if loginErr}}
                                 <p class="error">{{loginErr}}</p>
                                 {{/if}}
                                 {{#if accessErr}}
                                 <p class="error">{{accessErr}}</p>
                                 {{/if}}
-                                    <div class="form-outline form-white mb-4">
+                                    <div class="form-outline form-white mb-4" style="width: 400px; padding-left: 30px;">
                                         <input type="email" id="typeEmailX" class="form-control form-control-lg" name="Email" />
                                         <label class="form-label" for="typeEmailX">Email</label>
                                     </div>
 
-                                    <div class="form-outline form-white mb-4">
+                                    <div class="form-outline form-white mb-4" style="width: 400px; padding-left: 30px;">
                                         <input type="password" id="typePasswordX" class="form-control form-control-lg"  name="Password" />
                                         <label class="form-label" for="typePasswordX">Password</label>
                                     </div>

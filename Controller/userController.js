@@ -15,6 +15,7 @@ const couponModel = require("../model/couponModel");
 const orderModel = require("../model/orderModel");
 const Razorpay = require('razorpay');
 const session = require("express-session");
+const helper = require("../middleware/sentOtp");
 
 var instance = new Razorpay({
     key_id: 'rzp_test_miQEHrpQWMK0yw',
@@ -198,7 +199,10 @@ module.exports = {
         } else {
           req.session.user = response;
           req.session.userLoggedIn = true;
-          userServices.obj.OTP = userServices.sendMessage(req.body.Number);
+          let randomOTP = Math.floor(Math.random() * 10000);
+          req.session.signupOTP=randomOTP;
+          // userServices.obj.OTP = userServices.sendMessage(req.body.Number);
+          helper.sentOTP(req.body.Email,randomOTP)
           res.redirect("/otp");
         }
       });
@@ -215,7 +219,7 @@ module.exports = {
   },
 
   otpVarificationpost: (req, res) => {
-    if (req.body.otp == userServices.obj.OTP) {
+    if (req.body.otp == req.session.signupOTP) {
       res.redirect("/login");
     }
   },
@@ -225,8 +229,10 @@ module.exports = {
   },
 
   forgotPost: (req, res) => {
-    userServices.obj.OTP = userServices.sendMessage(req.body.Number);
-  
+    let randomOTP = Math.floor(Math.random() * 10000);
+    req.session.signupOTP=randomOTP;
+    req.session.email=req.body.Email;
+    helper.sentOTP(req.body.Email,randomOTP)
     res.render("forOTP");
   },
 
@@ -240,9 +246,22 @@ module.exports = {
   },
 
   postForotp: (req, res) => {
-    if (req.body.otp == userServices.obj.OTP) {
-      res.redirect("/");
+    if (req.body.otp ==req.session.signupOTP) {
+      res.redirect("/reSet");
     }
+  },
+  postReset:(req,res)=>{
+    if(req.body.Password==req.body.resetpassword){
+      userService.resetpassword(req.session.email,req.body.Password).then(()=>{
+        res.redirect('/login')
+      })
+    }
+
+  },
+
+  getReset:(req,res)=>{
+    res.render('reSet')
+
   },
 
   userRoot: (req, res, next) => {
@@ -430,12 +449,6 @@ req.session.hlstatus=true
   aboutPage: (req, res) => {
     let username = req.session.user;
     res.render("about", { username })
-  },
-
-  contactPage: (req, res) => {
-    let user = req.session.user;
-
-    res.render("contact", { user });
   },
 
   viewProduct: (req, res) => {
@@ -641,13 +654,14 @@ req.session.hlstatus=true
             })
        }else{
         let orderId=Math.floor(Math.random()*1000000)+ Date.now() 
-        let total=parseInt(req.body.total)
+        let total=req.body.discountedPrice?req.body.discountedPrice:req.body.total
+        total=parseInt(total)
         userService.generateRazorpay(orderId,total).then((result)=>{
             res.json(result)
             })
        }
- 
   },
+
   getVerifyPayment:(req,res)=>{
     userService.verifyPayment(req.body).then(()=>{
       userService.placeOrder(req.session._id,req.session.body.address,req.session.body.total,req.session.body.payment).then((result)=>{
@@ -681,6 +695,13 @@ req.session.hlstatus=true
    
     res.redirect('back')
   })
+},
+getReturnorder:async(req,res)=>{
+  let orderId=req.params.id;
+  await userServices.returnOrder(orderId).then((result)=>{
+    res.redirect('back')
+  })
+
 },
 orderSuccess:(req,res)=>{
   res.render("order-success");

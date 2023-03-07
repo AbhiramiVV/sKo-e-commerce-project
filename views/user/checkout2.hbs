@@ -34,6 +34,10 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
+    <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 
 	<body>
 		
@@ -69,7 +73,7 @@
 								</li>
 								<li><a href="/women">Women</a></li>
 								<li><a href="/about">About</a></li>
-								<li><a href="/contact">Contact</a></li>
+								
                                 <li class="cart"><a href="/cart"><i class="icon-shopping-cart" style="color:green ;">Cart</i><span class="badge badge-success" id="cart-count">{{cartCount}}</span></a></li>
 								<li class="cart"><a href="/wishlist"> <i class="icon-heart" style="color: red;">Wishlist</i><span class="badge badge-danger" id="wish-count">{{wishCount}}</a></li>
 								{{#if username}}
@@ -242,7 +246,7 @@
                                                 <td colspan="3" class="text-right">After Applying Coupon</td>
                                               <td>      <b>₹ {{discount.discountedPrice}}</b></td>                                          
                                             </tr>
-                                        
+                                        <input type="hidden" name="discountedPrice" value="{{discount.discountedPrice}}">
 
                                     </tfoot>
                                 </table>
