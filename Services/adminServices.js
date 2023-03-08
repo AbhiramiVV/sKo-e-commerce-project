@@ -301,7 +301,7 @@ module.exports={
         return new Promise((resolve,reject)=>{
             orderModel.updateOne({_id:orderId},{
                 $set:{
-                    orderStatus:"Delivered"
+                    orderStatus:"Delivered",orderStatus:true
                 
                 }
             }).then((response)=>{

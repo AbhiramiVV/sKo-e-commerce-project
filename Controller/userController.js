@@ -681,7 +681,8 @@ req.session.hlstatus=true
     let orderId=req.params.id;
     let user=req.session.user;
   await adminServices.getOrderDetails(orderId).then((order)=>{
-      res.render('view-order-products', {order,user})
+    req.session.price=order.products.Price;
+    res.render('view-order-products', {order,user})
     
    
    })
@@ -698,7 +699,10 @@ req.session.hlstatus=true
 },
 getReturnorder:async(req,res)=>{
   let orderId=req.params.id;
-  await userServices.returnOrder(orderId).then((result)=>{
+  console.log(req.session.price);
+  const _id = req.session._id; 
+  await userServices.returnOrder(orderId,req.session.price,_id).then((result)=>{
+
     res.redirect('back')
   })
 

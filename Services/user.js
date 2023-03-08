@@ -1,8 +1,8 @@
 
 const dbConnect = require('../config/dbConnect')
 const bcrypt = require('bcrypt');
-const userModel = require('../model/userModel');
-const productModel = require('../model/productModel');
+const userModel = require('../model/userModel')
+const productModel = require('../model/productModel')
 const orderModel =  require('../model/orderModel')
 const fast2sms = require('fast-two-sms');
 const { resolve } = require('express-hbs/lib/resolver');
@@ -31,6 +31,7 @@ module.exports={
                   Email: userData.Email,
                   Password: userData.Password,
                   Number: userData.Number,
+                  Wallet:0,
                   Address:[],
                   cart:[]  ,
                   wishlist:[],
@@ -215,15 +216,20 @@ module.exports={
           })
       })
   },
-  returnOrder:(orderId)=>{
-    console.log();
+  returnOrder:(orderId,price,id)=>{
+   console.log(typeof price);
     return new Promise(async(resolve,reject)=>{
       await orderModel.updateOne({_id:orderId},{$set:{
-        orderStatus:'Return',returnStatus:true
-      }}).then((response)=>{
-        resolve(response)
-      })
+        orderStatus:'Return',returnStatus:true }})
+        await userModel.updateOne({_id:id},{$inc:{
+          "Wallet":parseInt(price)
+        }}).then((result)=>{
+          console.log(result);
+          resolve()
+        })
+        // await userModel.updateOne({_id:data.userId},{$inc:{"wallet":data.price}})
     })
+  
 
   },
       addToCart: (productId, userId) => {
@@ -466,7 +472,6 @@ module.exports={
           const product=await productModel.find({_id:{$in:cartList}}).lean();
     
       let i=0
-   console.log(found);
        let ID =product[0]._id
 for(i=0;i<product.length;i++){
    await orderModel.create({                                                                      
@@ -479,7 +484,7 @@ for(i=0;i<product.length;i++){
              discountedPrice:0,
              payment:payment,
   }).then(result=>{
-    console.log(result);
+    // console.log(result);
     resolve(result)
   })
   await productModel.updateOne({_id:ID},{$inc:{"saleCount":cart[i].quantity}}) 

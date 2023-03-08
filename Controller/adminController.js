@@ -61,6 +61,7 @@ module.exports = {
         .find({ admin: false })
         .countDocuments()
         .lean();
+        console.log(monthlyData);
       const productCount = await productModel.find().lean().countDocuments();
       res.render("admin-home", {
         totalRevenue,

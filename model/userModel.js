@@ -35,6 +35,10 @@ let userSchema= new mongoose.Schema({
         type:Boolean,
         required:true
     },
+    Wallet:{
+        type:Number,
+        required:true
+    }
 
 
 }
