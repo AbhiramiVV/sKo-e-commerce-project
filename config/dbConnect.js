@@ -2,7 +2,7 @@
 
 const dbConnect=()=>{
     mongoose.set('strictQuery', true);
-    mongoose.connect('mongodb://127.0.0.1:27017/mysko')
+    mongoose.connect(process.env.MONGOOSE_CONNECT)
     .then(() => console.log('Connected!')).catch(err=>{
         console.log("error : ", err)
     }) }

@@ -96,11 +96,9 @@
   <ul class="dropdown-menu">
     <li><a class="dropdown-item"   href="/admin/pendding-admin-order/{{this._id}}" >Pending</a></li>
    <li> <a  class="dropdown-item"  href="/admin/deliver-order/{{this._id}}">Delivered</a></li>
-   {{#if orders.cancel}}
-   
-   {{else}}
+      <li> <a  class="dropdown-item"  href="/admin/return-order/{{this._id}}">Return</a></li>
     <li> <a class="dropdown-item"  href="/admin/cancel-admin-order/{{this._id}}">Cancelled</a></li>
-    {{/if}}
+   
     <li><a  class="dropdown-item"  href="/admin/ship-order/{{this._id}}"  >Shipped</a></li>
   </ul>
   

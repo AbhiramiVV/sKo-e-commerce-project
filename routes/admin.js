@@ -60,6 +60,7 @@ router.get('/pendding-admin-order/:id',adminController.getPending);
 router.get('/cancel-admin-order/:id',adminController.getAdcancel);
 router.get('/ship-order/:id',adminController.getAdshipp);
 router.get('/deliver-order/:id',adminController.getAddeliver);
+router.get('/return-order/:id',adminController.getAdreturn);
 
   
 //----------------coupon---------------------

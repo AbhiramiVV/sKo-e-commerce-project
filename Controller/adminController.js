@@ -61,7 +61,7 @@ module.exports = {
         .find({ admin: false })
         .countDocuments()
         .lean();
-        console.log(monthlyData);
+        
       const productCount = await productModel.find().lean().countDocuments();
       res.render("admin-home", {
         totalRevenue,
@@ -153,7 +153,6 @@ module.exports = {
   },
   categoryAddpost: async (req, res, next) => {
     try {
-      console.log(req.body);
       const response = await adminServices.addCategory(req.body);
       if (response.status) {
         req.session.categoryExist = "Category already exist";
@@ -257,7 +256,6 @@ module.exports = {
     adminServices.getAdminOrders().then((orders) => {
       for (const i of orders) {
         i.orderDate=new Date(i.orderDate).toDateString()
-        // console.log(i.createdAt);
       }
         res.render("addOrders", { orders });
 
@@ -270,9 +268,7 @@ module.exports = {
     });
   },
   getPending: async (req, res) => {
-    // console.log("getpxvace");
     let orderId = req.params.id;
-    //console.log("order", orderId);
     await adminServices.penddingAdminOrder(orderId).then((response) => {
       res.redirect("back");
     });
@@ -295,6 +291,13 @@ module.exports = {
       res.redirect("back");
     });
   },
+  getAdreturn:(req,res)=>{
+    let orderId = req.params.id;
+    adminServices.returnOrder(orderId).then((response) => {
+      res.redirect("back");
+    });
+  },
+
   getCoupon: async (req, res) => {
     try {
       let coupons = await adminServices.getCoupons();

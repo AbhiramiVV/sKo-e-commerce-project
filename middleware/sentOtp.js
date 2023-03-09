@@ -15,7 +15,7 @@ module.exports={
         to: email,
         subject: "sKo Email verification",
         html: `
-                  <h1>Verify Your Email For sKo/h1>
+                  <h1>Verify Your Email For sKo</h1>
                     <h3>use this code <h2>${otp}</h2> to verify your email</h3>
                    
                  `

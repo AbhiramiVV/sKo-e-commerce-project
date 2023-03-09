@@ -9,7 +9,13 @@ const { Promise } = require('mongoose')
 const couponModel = require('../model/couponModel')
 const { log } = require('console')
 const orderModel = require('../model/orderModel')
-
+const dotenv = require("dotenv").config();
+const cloudinary=require('cloudinary')
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_SECRET
+  });
 module.exports={
 
     doLogin:(req,res)=>{
@@ -20,9 +26,29 @@ module.exports={
         res.render('login')
     },
     addProduct:(product,files)=>{
-        
         return new Promise(async(resolve,reject)=>{
-           let result=await productModel.create({...product,...files,productStatus:false})
+            let main_image=files.Image[0]
+            let sub_image=files.subImage
+            let imageFile=await cloudinary.uploader.upload(main_image.path,{folder:'sko'})
+            let products=imageFile
+        
+            for(let i in sub_image){
+                let imageFile=await cloudinary.uploader.upload(sub_image[i].path,{folder:'sko'})
+                sub_image[i]=imageFile
+            }
+
+
+           let result=await productModel.create({
+            Name: product.Name ,
+            Category:product.Category,
+            Subcategory: product.Subcategory,
+            Price: product.Price,
+            Stock:product.Stock,
+            Description: product.Description,
+            Image:products,
+            subImage:sub_image,
+            productStatus:false
+           })
             resolve(result)
         })
      
@@ -66,7 +92,17 @@ module.exports={
     },
 
     updateProduct:(productId,ProDetails,files)=>{
-        return new Promise((resolve,reject)=>{
+        return new Promise(async(resolve,reject)=>{
+            let main_image=files.Image[0]
+            let sub_image=files.subImage
+            let imageFile=await cloudinary.uploader.upload(main_image.path,{folder:'sko'})
+            let products=imageFile
+        
+            for(let i in sub_image){
+                let imageFile=await cloudinary.uploader.upload(sub_image[i].path,{folder:'sko'})
+                sub_image[i]=imageFile
+            }
+
             productModel.updateOne({_id:productId},{
                $set:{
                 Name:ProDetails.Name,
@@ -74,7 +110,8 @@ module.exports={
                 Price:ProDetails.price,
                 Stock:ProDetails.Stock,
                 Subcategory:ProDetails.Subcategory,
-                Image:files.Image,
+                Image:products,
+                subImage:sub_image,
                 Price:ProDetails.Price,
               
                } 
@@ -126,13 +163,10 @@ module.exports={
         })
     },
     addCategory:(categoryData)=>{
-        console.log(categoryData);
         return new Promise(async(resolve,reject)=>{
-            // console.log(categoryData);
             let response={}
             let category = await categoryModel.findOne({category:categoryData.category})
             if(category){
-                // console.log("category already exist")
                 response.status=true
                 resolve(response)
             }else{
@@ -152,7 +186,6 @@ module.exports={
     addCoupon:(couponData)=>{
         return new Promise(async(resolve,reject)=>{
           await couponModel.create(couponData).then((data)=>{
-                //console.log(couponData);
                 couponData._id = data.insertedId
                 
                 resolve(couponData)
@@ -193,10 +226,8 @@ module.exports={
     },
 
     deleteCategory:(catId)=>{
-        // console.log("id"+catId);
         return new Promise((resolve,reject)=>{
             categoryModel.deleteOne({_id:catId}).then((response)=>{
-                // console.log(response);
                 resolve(response)
             })
         })
@@ -214,8 +245,6 @@ module.exports={
     },
 
     updateCategory:(_id,catDetails)=>{
-        // console.log("gffsggg",_id);
-        //console.log(_id, catDetails)
         return new Promise(async(resolve,reject)=>{
             try{
 
@@ -224,7 +253,6 @@ module.exports={
                         category:catDetails,
                     }
                 }).then((response)=>{
-                    // console.log(response);
                     resolve()
                 })
             }catch(err){
@@ -238,7 +266,6 @@ module.exports={
     getAdminOrders:()=>{
         return new Promise(async(resolve,reject)=>{
          let orders = await orderModel.find().lean()
-          //console.log(orders);
             resolve(orders)
         })
       
@@ -301,7 +328,7 @@ module.exports={
         return new Promise((resolve,reject)=>{
             orderModel.updateOne({_id:orderId},{
                 $set:{
-                    orderStatus:"Delivered",orderStatus:true
+                    orderStatus:"Delivered",returnStatus:true,cancel:true
                 
                 }
             }).then((response)=>{
@@ -309,6 +336,19 @@ module.exports={
             })
         })
     },
+    returnOrder:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+            orderModel.updateOne({_id:orderId},{
+                $set:{
+                    orderStatus:"Return"
+                
+                }
+            }).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+    
     getSalesDetails:async()=>{
         return new Promise(async(resolve,reject)=>{
           let products =await orderModel.find().lean()

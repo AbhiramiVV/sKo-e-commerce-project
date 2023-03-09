@@ -140,7 +140,6 @@ module.exports = {
           { $set: { "Adress.$": userDetails } }
         )
         .then((result) => {
-          console.log(result);
           res.redirect("/user-profile");
         });
     });
@@ -250,6 +249,11 @@ module.exports = {
       res.redirect("/reSet");
     }
   },
+  
+  getReset:(req,res)=>{
+    res.render('reSet')
+
+  },
   postReset:(req,res)=>{
     if(req.body.Password==req.body.resetpassword){
       userService.resetpassword(req.session.email,req.body.Password).then(()=>{
@@ -259,10 +263,6 @@ module.exports = {
 
   },
 
-  getReset:(req,res)=>{
-    res.render('reSet')
-
-  },
 
   userRoot: (req, res, next) => {
     let user = req.session.user;
@@ -438,8 +438,6 @@ req.session.lhstatus=true
     req.session.lowTohigh=null
     return new Promise(async(resolve,reject)=>{
       let highTolow = await productModel.find({Category:"women"}).sort({Price:-1}).lean()
-      console.log(highTolow );
-      resolve(highTolow )
       req.session.highTolow =highTolow 
 req.session.hlstatus=true
       res.redirect('/women')
@@ -635,7 +633,6 @@ req.session.hlstatus=true
 
 
   applyCoupon: (req, res) => {
-    console.log(req.body);
     return new Promise((resolve, reject) => {
       couponModel.findOne({ code: req.body.coupon }).then((coupon) => {
         req.session.coupon = coupon;
@@ -689,7 +686,6 @@ req.session.hlstatus=true
    
   },
   getCancelorder:async(req,res)=>{
-   //console.log(req.params.id);
 
   let orderId=req.params.id;
    await userServices.cancelOrder(orderId).then((result)=>{
@@ -699,7 +695,6 @@ req.session.hlstatus=true
 },
 getReturnorder:async(req,res)=>{
   let orderId=req.params.id;
-  console.log(req.session.price);
   const _id = req.session._id; 
   await userServices.returnOrder(orderId,req.session.price,_id).then((result)=>{
 

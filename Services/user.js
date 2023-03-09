@@ -8,10 +8,10 @@ const fast2sms = require('fast-two-sms');
 const { resolve } = require('express-hbs/lib/resolver');
 const { response } = require('express');
 const Razorpay = require('razorpay');
-
+const dotenv = require("dotenv").config();
 const instance = new Razorpay({
-  key_id: 'rzp_test_miQEHrpQWMK0yw',
-  key_secret:'YRRxRJFwjOaTj6oizSFnR0XV',
+  key_id: process.env.KEY_ID,
+  key_secret:process.env.KEY_SECRET,
 });
 
 module.exports={
@@ -20,7 +20,6 @@ module.exports={
           let response = {};
           let user = await userModel.findOne({ Email: userData.Email }).lean();
           if (user) {
-            // console.log("user already exist");
             response.User = true;
             resolve(response);
           } else {
@@ -97,33 +96,14 @@ module.exports={
       },
       sendMessage:(Number) => {
         let randomOTP = Math.floor(Math.random() * 10000);
-       //console.log(randomOTP);
-        const options = {
-          authorization:
-            "5DtgLcYUqJ8xM3CjQuTXeB9wniHadK7Fm0l1hprWysNI4oE2SAl5qy1LGpcXIQ7NPjsJhaOnD3fgRtTx",
-          message: `Your OTP for sKo login is ${randomOTP}`,
-          numbers: [Number],
-        };
-        //console.log(options);
-        fast2sms
-          .sendMessage(options)
-          .then((_response) => {
-             console.log("OTP send successfully");
-          })
-          .catch((_err) => {
-            //console.log("error");
-          });
         return randomOTP;
       },
       resetpassword:(Email,Pass)=>{
         
        return new Promise(async(resolve, reject) => {
         Password= await bcrypt.hash(Pass, 10);
-        console.log(Pass);
        let result= await userModel.find({Email:Email})
-       console.log(result);
         await userModel.updateOne({Email:Email},{$set:{Password:Password}}).then(result=>{
-          console.log(result);
           resolve()
         })
         });
@@ -148,7 +128,6 @@ module.exports={
       
     
       getUserProfile:(userId) => {
-        console.log(userId);
         return new Promise(async (resolve, _reject) => {
         await userModel.findOne({_id:userId}).then((user)=>{
           resolve(user);
@@ -158,10 +137,7 @@ module.exports={
       },
       deleteAdd:(ad_id,userId)=>{
         return new Promise(async(resolve,reject)=>{
-          console.log(address_id);
-          console.log(userId);
         let result = await userModel.updateOne({_id:userId},{$pull:{Adress:{address_id:parseInt(ad_id)}}}).then((response)=>{
-          console.log(response);
           resolve(response)
         })
         
@@ -178,7 +154,6 @@ module.exports={
         });
       },
       updateUser: (userId, userDetails) => {
-        // console.log(userId);
         return new Promise((resolve, reject) => {
         
            userModel .updateOne(
@@ -193,7 +168,6 @@ module.exports={
               }
             )
             .then((response) => {
-              // console.log(response);
               resolve();
             });
         });
@@ -217,17 +191,15 @@ module.exports={
       })
   },
   returnOrder:(orderId,price,id)=>{
-   console.log(typeof price);
     return new Promise(async(resolve,reject)=>{
       await orderModel.updateOne({_id:orderId},{$set:{
         orderStatus:'Return',returnStatus:true }})
         await userModel.updateOne({_id:id},{$inc:{
           "Wallet":parseInt(price)
         }}).then((result)=>{
-          console.log(result);
           resolve()
         })
-        // await userModel.updateOne({_id:data.userId},{$inc:{"wallet":data.price}})
+        
     })
   
 
@@ -279,7 +251,6 @@ module.exports={
 
 
     cartProductsDetails:(id)=>{
-     // console.log(id);
         return new Promise(async(resolve, _reject) => {
             let {cart}= await userModel.findOne({_id:id},{cart:1}).lean()
               resolve(cart)
@@ -320,23 +291,8 @@ module.exports={
       }
     },
     
-    // quantityInc:(userid,id)=>{
-    //  // console.log('pro'+id);
-    //  // console.log('user'+userid);
-    //   return new Promise(async(resolve, reject) => {
-    //     // let quantity=2;
-    //     await userModel.updateOne({_id:userid,cart:{$elemMatch:{id:id}} },{
-    //       $inc:{
-    //           "cart.$.quantity":1
-    //       }
-    //   }).then((result)=>{
-    //     console.log(result);
-    //       resolve(result)
-    //     })
-    //   });
-    // },
     checkQty:(_id)=>{
-      //console.log(_id);
+    
       return new Promise(async(resolve, reject) => {
         let {cart}= await userModel.findOne({"cart.id":_id},{_id:0,cart:{$elemMatch:{_id:_id}} })
       
@@ -395,7 +351,7 @@ module.exports={
         return new Promise(async (resolve, _reject) => {
           let count = 0;
           let cart = await userModel.findOne({ cart: (userid) });
-          console.log(cart);
+          
           if (cart) {
             count = cart.products.length;
           }
@@ -403,7 +359,6 @@ module.exports={
         })
       },
       wishlistProductsDetails:(id)=>{
-        console.log(id);
           return new Promise(async(resolve, _reject) => {
               let {wishlist}= await userModel.findOne({_id:id},{wishlist:1}).lean()
   
@@ -416,7 +371,6 @@ module.exports={
         })
       },
       productWishlist:(prodID)=>{
-        console.log(prodID);
         return new Promise(async(resolve, _reject) => {
             let product= await productModel.find({_id:{$in:prodID}}).lean()
               resolve(product)
@@ -484,7 +438,6 @@ for(i=0;i<product.length;i++){
              discountedPrice:0,
              payment:payment,
   }).then(result=>{
-    // console.log(result);
     resolve(result)
   })
   await productModel.updateOne({_id:ID},{$inc:{"saleCount":cart[i].quantity}}) 
@@ -513,7 +466,7 @@ for(i=0;i<product.length;i++){
        verifyPayment:(details)=>{
         return new Promise((resolve, reject) => {
           let crypto = require('crypto')
-          let hamc =crypto.createHmac('sha256','YRRxRJFwjOaTj6oizSFnR0XV')
+          let hamc =crypto.createHmac('sha256',process.env.KEY_SECRET)
           hamc.update(details.payment.razorpay_order_id+'|'+details.payment.razorpay_payment_id)
           hamc=hamc.digest('hex')
           if(hamc==details.payment.razorpay_signature){
@@ -524,17 +477,7 @@ for(i=0;i<product.length;i++){
         });
        },
     
-      //   getWishCount: (userId) => {
-      //   return new Promise(async (resolve, reject) => {
-      //     let count = 0;
-      //     let wishlist = await userModel.findOne({ wishlist: (userId) });
-      //     if (wishlist) {
-      //       count = wishlist.products.length;
-      //     }
-      //     resolve(count);
-      //   });
-      // },
-
+    
       
 
       

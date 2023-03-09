@@ -138,7 +138,7 @@
                             <div class="slick3 gallery-lb">
                                 <div class="item-slick3" data-thumb="/product-images/{{product._id}}.jpg">
                                     <div class="wrap-pic-w pos-relative" id="zoom-image">
-                                        <img src="/product-images/{{product.Image.[0].filename}}" alt="IMG-PRODUCT">
+                                        <img src="{{product.Image.url}}" alt="IMG-PRODUCT">
             
                                         <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/product-images/{{product._id}}">
                                             <i class="fa fa-expand"></i>
@@ -146,10 +146,10 @@
                                     </div>
 					<div class="row my-3  previews">
                         <div class="col-md-3" >
-                            <img class="w-100" src="/product-images/{{product.Image.[0].filename}}" alt="Sale">
+                            <img class="w-100" src="{{product.subImage.[0].url}}" alt="Sale">
                         </div>
                         <div class="col-md-3" style="margin-left: -8px;">
-                            <img class="w-100" src="/product-images/{{product.subImage.[0].filename}}" alt="Sale">
+                            <img class="w-100" src="{{product.subImage.[0].url}}" alt="Sale">
                         </div>
                         {{!-- <div class="col-md-3" style="margin-left: -8px;">
                             <img class="w-100" src="/product-images/{{product.subImage.[1].filename}}" alt="Sale">

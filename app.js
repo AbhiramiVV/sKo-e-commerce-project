@@ -37,10 +37,8 @@ app.use(
 app.use("/admin", adminRouter);
 app.use("/", usersRouter);
 
-// app.all("*", (req, res) => {
-//   res.render("error")
-//   // res.status(404).send("<h1>404! PAGE NOT FOUND</h1>");
- 
-// });
+app.all("*", (req, res) => {
+  res.render("error") 
+});
 
 app.listen(process.env.port || 7000);
