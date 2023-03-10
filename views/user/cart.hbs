@@ -130,18 +130,13 @@
 									<span class="price">Rs.{{this.Price}}</span>
 								</div>
 							</div>
-							{{!-- {{/each}} --}}
 							<div class="one-eight text-center">
 								<div class="display-tc">
-									{{!-- <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100"> --}}
-								   {{!-- <button class="cart-item-count mr-3 border-light" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
-								   <span id="{{this.product._id}}">{{this.quantity}}</span>
-								   <button class="cart-item-count ml-3 border-light" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button> --}}
+		
 								   <a href="/quantityDec/{{this._id}}" class="btn btn-dark">-</a>
 								   	<input type="text" class="form-control text-center" style="width: 50px;" value="{{this.cartQuantity}}">
 								   <a href="/quantityInc/{{this._id}}" class="btn btn-dark">+</a>
 								   
-                                        {{!-- <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1"> --}}
 								</div>
 							</div>
 							<div class="one-eight text-center">
@@ -151,7 +146,6 @@
 							</div>
 							<div class="one-eight text-center">
 								<div class="display-tc">
-									{{!-- <a href="/remove-product/{{this.product._id}}" class="closed"></a> --}}
 									
 									<a class="cart-item-count ml-3 border-light remove" href="/removeProd/{{this._id}}"><i class="bi bi-trash"></i></a>
 								</div>
@@ -165,25 +159,11 @@
 						<div class="total-wrap">
 							<div class="row">
 								<div class="col-sm-8">
-									<form id="coupon-form">
-										{{!-- <div class="row form-group">
-											<div class="col-sm-9">
-												<input type="text" name="Coupon"  class="form-control input-number" placeholder="Your Coupon Number...">
-											</div>
-											<div class="col-sm-3">
-												 <input type="submit" value="Apply Coupon" class="btn btn-primary"> 
-												 {{!-- <button class="btn btn-primary" onclick="applyCoupon()">Apply Coupon</button> --}}
-											</div>
-										</div> --}}
-									</form>
+									
 								</div>
 								<div class="col-sm-4 text-center">
 									<div class="total">
-										<div class="sub">
-											{{!-- {{!-- <p><span>Subtotal:</span><span> Rs.<span id="total">{{Price}}</span></span></p>  --}}
-											{{!-- <p><span>Delivery:</span> <span>Rs.0</span></p>
-											<p><span>Discount:</span> <span>Rs.0</span></p> --}}
-										</div>
+									
 										<div class="grand-total">
 											<p><span><strong>Total Amount:</strong></span><span id="total">{{totalPrice}}</span></p>
 										</div>
@@ -229,5 +209,3 @@
 
 
 
-</body>
-</html>

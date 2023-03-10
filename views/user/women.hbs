@@ -172,7 +172,7 @@
 									<h3>Brand</h3>
 									<ul>
 										{{#each brand}}
-										<li><a href='/brandmen/{{this._id}}'>{{this._id}}</a></li>
+										<li><a href='/brand/{{this._id}}'>{{this._id}}</a></li>
 										{{!-- <li><a href="#">Adidas</a></li>
 										<li><a href="#">Merrel</a></li>
 										<li><a href="#">Gucci</a></li>
@@ -193,23 +193,7 @@
 							</div>
 						</div>
 					</div>
-                    {{!-- {{#each products}}
-					<div class="col-md-3 col-lg-3 mb-4 text-center">
-						<div class="product-entry border">
-							<a href="/product-view/?id={{this._id}}" class="prod-img">
-								 <img src="product-images/{{this.Image.[0].filename}}" class="img-fluid" alt="Free html5 bootstrap 4 template">
-							</a>
-							<div class="desc">
-								<h2><a href="#">{{this.Name}}</a></h2>
-                                <span class="Category">{{this.Category}}</span>
-								<span class="price">Rs.{{this.Price}}</span>
-				
-								<button onclick="addToWishlist('{{this._id}}')" class="btn btn-primary"><i class="icon-heart"></i></button>
-								<button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to cart</button>
-							</div>
-						</div>
-					</div>
-					{{/each}} --}}
+                    
 					{{!-- {{#unless status }} --}}
 						{{#each products}}
 					<div class="col-lg-3 mb-4 text-center">

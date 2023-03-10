@@ -55,7 +55,7 @@ router.get('/highTolowmen',userController.highTolowmen);
 //GET Women's page
 
 router.get('/women',userController.womenPage);
-router.get('/brand/:_id',userController.getBrand);
+router.get('/brand/:_id',userController.getBrandwomen);
 router.get('/lowTohigh',userController.lowTohigh);
 router.get('/highTolow',userController.highTolow);
 

@@ -306,7 +306,6 @@ module.exports={
           _id: _userid,
           cart: { $elemMatch: { id: id } },
         });
-    
         if (cartItem.cart[0].quantity <= 1) {
           // If the quantity is 1 or less, remove the product from the cart
           await userModel

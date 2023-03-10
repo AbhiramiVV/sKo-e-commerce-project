@@ -167,12 +167,23 @@
                 
             </div>
             
+<div class="row">
 
-<div id="chart">
+<div id="chart" style="margin-right:150px;">
  <h3 style="padding: 12px;font-weight: bold; color: darkblue;">Total Revenue</h3>
   
 </div>
+
+<div class="charts-section mt-3">
+<div id="piechart" class="col-4 d-flex flex-column mt-1" >
+
+   <h3  style="padding: 7px;font-weight: bold; color: darkblue;">Payment Method </h3>
+</div>
+</div>
   <script>
+
+    let online={{online}}
+  let cod={{cod}}
      var options = {
           series: [
           
@@ -184,7 +195,8 @@
         ],
           chart: {
           type: 'bar',
-          height: 350
+          height: 350,
+          width:900
         },
         plotOptions: {
           bar: {
@@ -222,8 +234,29 @@
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-
+       chart.render();
+  
+var options = {
+   series: [online,cod],
+   chart: {
+   width: 380,
+   type: 'pie',
+ },
+ labels: ['online','COD'],
+ responsive: [{
+   breakpoint: 480,
+   options: {
+     chart: {
+       width: 200
+     },
+     legend: {
+       position: 'bottom'
+     }
+   }
+ }]
+ };
+ var piechart = new ApexCharts(document.querySelector("#piechart"), options);
+ piechart.render();
        
         
 </script>

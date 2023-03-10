@@ -409,12 +409,12 @@ req.session.hlstatus=true
       req.session.hlstatus=null
   })
   },
-  getBrand:(req,res)=>{
+  getBrandwomen:(req,res)=>{
     req.session.highToLow=null;
     req.session.lowTohigh=null;
     return new Promise(async(resolve,reject)=>{
-  let brandProduct = await productModel.find({ Name: req.params._id }).lean();
-   req.session.brandProduct=brandProduct
+  let brandProductwomen = await productModel.find({ Name: req.params._id }).lean();
+   req.session.brandProduct=brandProductwomen
 
       res.redirect('/women')
     })
@@ -480,12 +480,13 @@ req.session.hlstatus=true
         } else { // if the cart is not empty
           result.map((item, index) => {
             result[index].cartQuantity = cartQuantities[item._id];
-            item.Price = item.Price * result[index].cartQuantity;
+             
           });
-  
+   
           const calcAmount = result.reduce((acc, item) => {
             return (acc += item.Price * item.cartQuantity);
           }, 0);
+          console.log(calcAmount);
   
           const totalPrice = calcAmount;
           res.render("cart", {
@@ -523,9 +524,10 @@ req.session.hlstatus=true
     
 
       if (cartItems[0] < 2) {
-        userServices.removeCartItem(req.session._id, req.params.id).then(() => {
-          res.redirect("back");
-        });
+        // userServices.removeCartItem(req.session._id, req.params.id).then(() => {
+        //   res.redirect("back");
+        // });
+        res.redirect("back");
       } else {
         userServices.quantityDec(req.session._id, req.params.id).then(() => {
           res.redirect("back");
