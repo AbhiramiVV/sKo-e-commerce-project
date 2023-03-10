@@ -37,7 +37,6 @@ module.exports={
                 sub_image[i]=imageFile
             }
 
-
            let result=await productModel.create({
             Name: product.Name ,
             Category:product.Category,

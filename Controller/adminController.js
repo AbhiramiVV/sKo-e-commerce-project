@@ -21,7 +21,7 @@ const { LoggerLevel } = require("mongodb");
 module.exports = {
   getHome: async (req, res) => {
     if (req.session.admin) {
-      // const totalAmount = await adminServices.getTotalPrice();
+   
       const orderCount = await orderModel.find().countDocuments().lean();
       const orders = await orderModel.find().lean();
       const deliveredOrder = await orderModel
@@ -41,10 +41,20 @@ module.exports = {
           },
         },
       ]);
+      const monthlyReturnArray = await orderModel.aggregate([{ $match: { orderStatus: "Return" } }, { $group: { _id: { $month: '$orderDate' }, sum: { $sum: '$totalPrice' } } }])
+       
       let monthlyDataObject = {};
+      let monthlyReturnObject = {}
       monthlyDataArray.map((item) => {
         monthlyDataObject[item._id] = item.sum;
       });
+      monthlyReturnArray.map(item => {
+        monthlyReturnObject[item._id] = item.sum
+    })
+    let monthlyReturn = []
+    for (let i = 1; i <= 12; i++) {
+        monthlyReturn[i - 1] = monthlyReturnObject[i] ?? 0
+    }
       let monthlyData = [];
       for (let i = 1; i <= 12; i++) {
         monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
@@ -67,6 +77,7 @@ module.exports = {
         totalRevenue,
         orderCount,
         monthlyData,
+        monthlyReturn,
         online,
         cod,
         productCount,
