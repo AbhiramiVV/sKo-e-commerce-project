@@ -121,6 +121,7 @@ module.exports = {
         { Adress: 1 }
       );
       let addressId = req.params.id;
+      console.log('enter hererere');
       let data = await Adress.find((e) => e.address_id == addressId);
       req.session.editAddress = data;
       res.redirect("/addAddress");
